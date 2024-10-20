@@ -1,6 +1,6 @@
 require 'gli'
 require 'irb'
-require 'imori/irb/util'
+require 'imori/utils/irb'
 
 module Imori
   class App
@@ -12,6 +12,7 @@ module Imori
 
     default_command :irb
 
+    desc 'start irb session'
     command :irb do |c|
       c.action do |global_options,options,args|
         IRB.start(__FILE__, ['-r', 'imori/irb'])
