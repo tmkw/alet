@@ -1,0 +1,64 @@
+ja:
+  connection:
+    description: 現在のSalesforce組織との接続情報
+  apex:
+    description: Apexコードを実行する
+  gen:
+    description: 1つ以上のsObjectクラスを生成する
+    help: |
+      ## Name
+      gen
+
+      ## SYNOPSIS
+      gene sObjectType...
+
+      ## DESCRIPTION
+      1つ以上のsObjectクラスを生成する
+
+      ## ARGUMENTS
+      **sObjectType** sObjectの型名
+
+      ## EXAMPLES
+      ```shell
+      gen Account Contact User
+      ```
+  query:
+    description: SOQLを使ってレコードを検索する 
+    help: |
+      ## NAME
+      query
+
+      ## SYNOPSIS
+      query SOQL
+
+      ## DESCRIPTION
+      SOQLを使ってレコードを検索する
+
+      ## ARGUMENTS
+      **SOQL** - SOQL(SELECT 構文)
+
+      ## EXAMPLE
+      ```shell
+      query SELECT Id, Name FROM Account Name LIKE '%hoge%'
+      ```
+  sh:
+    description: シェルコマンドを実行する
+    help: |
+      ## NAME
+      sh
+
+      ## SYNOPSIS
+      sh [command]
+
+      ## DESCRIPTION
+      シェルコマンドを実行する
+
+      ## ARGUMENTS
+      **command** - 実行するコマンドライン
+
+      コマンドを指定せずにEnterを押すとインタラクティブモードに移行する。インタラクティブモードから抜けるにはCTR-Dを押す
+
+      ## EXAMPLE
+      ```shell
+      sh ls -aF
+      ```
