@@ -1,5 +1,6 @@
 require 'gli'
 require 'irb'
+require 'imori/config'
 require 'imori/utils/irb'
 
 module Imori
@@ -10,13 +11,17 @@ module Imori
 
     program_desc 'A Ruby-styled Salesforce console utility'
 
-    default_command :irb
+    desc 'Username or alias of the target org'
+    flag [:o, 'target-org'], default_value: nil
 
     desc 'start irb session'
     command :irb do |c|
-      c.action do |global_options,options,args|
-        IRB.start(__FILE__, ['-r', 'imori/irb'])
+      c.action do |global_options, options, args|
+        Imori.config.cli_options[:"target-org"] = global_options['target-org']
+        IRB.start(__FILE__, ['-r', 'imori/irb', '--noscript', global_options['target-org']])
       end
     end
+
+    default_command :irb
   end
 end

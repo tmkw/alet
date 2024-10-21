@@ -6,6 +6,8 @@ module IRBUtils
 
       setup(ap_path, argv: argv)
 
+      @CONF[:USE_COLORIZE] = false
+
       if @CONF[:SCRIPT]
         irb = ::IRB::Irb.new(nil, @CONF[:SCRIPT])
       else
