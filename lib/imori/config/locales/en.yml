@@ -1,4 +1,17 @@
 en:
+  cli:
+    desc:            A Ruby-styled Salesforce console utility
+    target_org:      Username or alias of the target org
+    irb:
+      desc:          start irb session(if there is no subcommand specified, irb gets default)
+    generate:
+      desc:          generate resources that are related to Salesforce DX project
+      project:
+        desc:        generate salesforce DX project
+        target_org:  Username or alias of the target org, which the manifest and source files are generated based on
+        manifest:    Generate a manifest (package.xml)
+        retrieve:    Retrieve source files from org
+        open_editor: open editor(vs code) to edit the project
   connection:
     description: Current connection with Salesforce
   apex:
@@ -60,4 +73,23 @@ en:
       ## EXAMPLE
       ```shell
       sh ls -aF
+      ```
+  export:
+    description: Export sObject records
+    help: |
+      ## NAME
+      export
+
+      ## SYNOPSIS
+      export SOQL
+
+      ## DESCRIPTION
+      export sObject records. If it succeeds, a csv file is created.
+
+      ## ARGUMENTS
+      **SOQL** SOQL(SELECT statement)
+
+      ## EXAMPLE
+      ```shell
+      export SELECT Id, Name FROM Account
       ```

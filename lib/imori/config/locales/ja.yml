@@ -1,4 +1,17 @@
 ja:
+  cli:
+    desc:            RubyスタイルのSalesforceコンソールユーティリティ
+    target_org:      ユーザー名またはSF組織の別名
+    irb:
+      desc:          irbセッションを開始(サブコマンドの指定なしにコマンドが起動した場合、自動的にirbセッションが開始される)
+    generate:
+      desc:          Salesforce DXプロジェクトに関連した資材を生成する
+      project:
+        desc:        salesforce DX projectを生成する
+        target_org:  マニフェストファイルとソースファイルの読み込み先となるSF組織の別名またはその組織のユーザー名
+        manifest:    マニフェストファイル(package.xml)を生成する
+        retrieve:    マニフェストファイルの内容を元にSF組織からソースファイルを取得する
+        open_editor: プロジェクト構築完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
   connection:
     description: 現在のSalesforce組織との接続情報
   apex:
@@ -10,7 +23,7 @@ ja:
       gen
 
       ## SYNOPSIS
-      gene sObjectType...
+      gen sObjectType...
 
       ## DESCRIPTION
       1つ以上のsObjectクラスを生成する
@@ -61,4 +74,23 @@ ja:
       ## EXAMPLE
       ```shell
       sh ls -aF
+      ```
+  export:
+    description: レコードをエクスポートする
+    help: |
+      ## NAME
+      export
+
+      ## SYNOPSIS
+      export SOQL
+
+      ## DESCRIPTION
+      レコードをエクスポートする.正常に終了するとカレントディレクトリにCSVファイルが生成される.
+
+      ## ARGUMENTS
+      **SOQL** SOQL(SELECT構文)
+
+      ## EXAMPLE
+      ```shell
+      export SELECT Id, Name FROM Account
       ```
