@@ -7,16 +7,7 @@ require 'tty-table'
 require 'pastel'
 require 'i18n'
 
-#
-# i18n settings
-#
-I18n.load_path += Imori.config.i18n.load_path
-I18n.default_locale = :en
 I18n.locale = IRB.conf[:LC_MESSAGES].lang.to_sym
-
-def t(indicator)
-  I18n.t(indicator)
-end
 
 #
 # load commands
@@ -24,9 +15,11 @@ end
 require_relative 'irb/command/generate_model'
 require_relative 'irb/command/query'
 require_relative 'irb/command/sh'
+require_relative 'irb/command/export'
 
 IRB::Command.register :gen, GenerateModel
 IRB::Command.register :query, Query
+IRB::Command.register :export, Export
 IRB::Command.register :sh, Shell
 
 #
