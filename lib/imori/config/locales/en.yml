@@ -4,6 +4,9 @@ en:
     target_org:      Username or alias of the target org
     irb:
       desc:          start irb session(if there is no subcommand specified, irb gets default)
+      example:
+        default:     start irb session
+        target_org:  start irb session with specifying target org
     generate:
       desc:          generate resources that are related to Salesforce DX project
       project:
@@ -12,6 +15,11 @@ en:
         manifest:    Generate a manifest (package.xml)
         retrieve:    Retrieve source files from org
         open_editor: open editor(vs code) to edit the project
+        example:
+          default:   create a Salesfore DX project
+          manifest:  create a Salesfore DX project with manifest file (package.xml)
+          from_org:  The manifest file is built based on org
+          retrieve:  The manifest file and medadata source files are built based on org. This option is only available with -o option.
   connection:
     description: Current connection with Salesforce
   apex:

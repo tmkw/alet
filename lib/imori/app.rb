@@ -3,6 +3,7 @@ require 'irb'
 require 'imori/config'
 require 'imori/utils/irb'
 require 'imori/generate/project'
+require 'imori/version'
 require 'i18n'
 
 #
@@ -23,14 +24,19 @@ module Imori
     using IRBUtils
 
     program_desc t('cli.desc')
+    version Imori::VERSION
 
     desc t('cli.target_org')
     flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
+
 
     desc t('cli.irb.desc')
     command :irb do |c|
       c.desc desc t('cli.target_org')
       c.flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
+
+      c.example "imori", desc: t('cli.irb.example.default')
+      c.example "imori -o org", desc: t('cli.irb.example.target_org')
 
       c.action do |global_options, options, args|
         Imori.config.cli_options[:"target-org"] = global_options['target-org'] || options['target-org']
@@ -54,6 +60,11 @@ module Imori
 
         prj.desc t('cli.generate.project.retrieve')
         prj.switch [:r, 'retrieve'], negatable: false
+
+        prj.example "imori generate project MyProject", desc: t('cli.generate.project.example.default')
+        prj.example "imori generate project MyProject -m", desc: t('cli.generate.project.example.manifest')
+        prj.example "imori generate project MyProject -m -o org", desc: t('cli.generate.project.example.from_org')
+        prj.example "imori generate project MyProject -m -r -o org", desc:t('cli.generate.project.example.retrieve')
 
         prj.action do |_, options, args|
           Imori::Project.generate(args.first, **options)
