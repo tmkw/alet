@@ -3,7 +3,10 @@ ja:
     desc:            RubyスタイルのSalesforceコンソールユーティリティ
     target_org:      ユーザー名またはSF組織の別名
     irb:
-      desc:          irbセッションを開始(サブコマンドの指定なしにコマンドが起動した場合、自動的にirbセッションが開始される)
+      desc:          irbセッションを開始
+      example:
+        default:     irbセッションを開始.
+        target_org:  SF組織の別名またはログインユーザー名を指定してirbを起動
     generate:
       desc:          Salesforce DXプロジェクトに関連した資材を生成する
       project:
@@ -12,6 +15,11 @@ ja:
         manifest:    マニフェストファイル(package.xml)を生成する
         retrieve:    マニフェストファイルの内容を元にSF組織からソースファイルを取得する
         open_editor: プロジェクト構築完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
+        example:
+          default:   a Salesfore DXプロジェクトのディレクトリを作成する
+          manifest:  プロジェクトディレクトリにマニフェストファイル(package.xml)を含める
+          from_org:  接続組織のメタデータ情報を元にマニフェストファイルの内容を書き込む. (-m オプションの併用が前提)
+          retrieve:  メタデータのソースファイルをDXプロジェクト内に生成する (-o オプションの使用が前提)
   connection:
     description: 現在のSalesforce組織との接続情報
   apex:
