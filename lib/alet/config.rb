@@ -1,4 +1,4 @@
-module Imori
+module Alet
   def self.config
     @config ||= Config.new
   end

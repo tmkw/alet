@@ -1,5 +1,5 @@
 class Shell < IRB::Command::Base
-  category "Imori"
+  category "Alet"
   description t('sh.description')
   help_message TTY::Markdown.parse t('sh.help')
 

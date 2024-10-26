@@ -1,7 +1,7 @@
 require 'yamori/query_condition'
 
 class Query < IRB::Command::Base
-  category "Imori"
+  category "Alet"
   description t('query.description')
   help_message TTY::Markdown.parse t('query.help')
 
@@ -16,6 +16,6 @@ class Query < IRB::Command::Base
 
     return if soql.nil?
 
-    puts sf.data.query(soql, format: :human, target_org: ::Imori.config.connection.alias)
+    puts sf.data.query(soql, format: :human, target_org: ::Alet.config.connection.alias)
   end
 end

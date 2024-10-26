@@ -1,5 +1,5 @@
 class GenerateModel < IRB::Command::Base
-  category "Imori"
+  category "Alet"
   description t('gen.description')
   help_message TTY::Markdown.parse t('gen.help')
 

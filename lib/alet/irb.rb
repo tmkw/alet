@@ -1,6 +1,6 @@
 require 'sf_cli'
 require 'yamori'
-require 'imori/config'
+require 'alet/config'
 require 'irb/command/base'
 require 'tty-markdown'
 require 'tty-table'
@@ -34,9 +34,9 @@ IRB::HelperMethod.register(:apex, Apex)
 #
 # set connection
 #
-conn = sf.org.display target_org: Imori.config.cli_options[:"target-org"]
+conn = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
 
-Imori.config.connection = conn
+Alet.config.connection = conn
 
 sf.org.login_web target_org: conn.alias, instance_url: conn.instance_url unless conn.connected?
 

@@ -1,15 +1,15 @@
 require 'gli'
 require 'irb'
-require 'imori/config'
-require 'imori/utils/irb'
-require 'imori/generate/project'
-require 'imori/version'
+require 'alet/config'
+require 'alet/utils/irb'
+require 'alet/generate/project'
+require 'alet/version'
 require 'i18n'
 
 #
 # i18n settings
 #
-I18n.load_path += Imori.config.i18n.load_path
+I18n.load_path += Alet.config.i18n.load_path
 I18n.default_locale = :en
 I18n.locale = /jp|JP|ja|ja_JP/.match?(ENV['LANG']) ? :ja : :en
 
@@ -17,14 +17,14 @@ def t(indicator)
   I18n.t(indicator)
 end
 
-module Imori
+module Alet
   class App
     extend GLI::App
 
     using IRBUtils
 
     program_desc t('cli.desc')
-    version Imori::VERSION
+    version Alet::VERSION
 
     desc t('cli.target_org')
     flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
@@ -35,12 +35,12 @@ module Imori
       c.desc desc t('cli.target_org')
       c.flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
 
-      c.example "imori", desc: t('cli.irb.example.default')
-      c.example "imori -o org", desc: t('cli.irb.example.target_org')
+      c.example "alet", desc: t('cli.irb.example.default')
+      c.example "alet -o org", desc: t('cli.irb.example.target_org')
 
       c.action do |global_options, options, args|
-        Imori.config.cli_options[:"target-org"] = global_options['target-org'] || options['target-org']
-        IRB.start(__FILE__, ['-r', 'imori/irb', '--noscript', global_options['target-org']])
+        Alet.config.cli_options[:"target-org"] = global_options['target-org'] || options['target-org']
+        IRB.start(__FILE__, ['-r', 'alet/irb', '--noscript', global_options['target-org']])
       end
     end
 
@@ -56,18 +56,18 @@ module Imori
         prj.switch [:m, :manifest], negatable: false
 
         prj.desc t('cli.generate.project.open_editor')
-        prj.switch [:e, 'open-editor'], negatable: false
+        prj.switch [:e, 'editor-open'], negatable: false
 
         prj.desc t('cli.generate.project.retrieve')
         prj.switch [:r, 'retrieve'], negatable: false
 
-        prj.example "imori generate project MyProject", desc: t('cli.generate.project.example.default')
-        prj.example "imori generate project MyProject -m", desc: t('cli.generate.project.example.manifest')
-        prj.example "imori generate project MyProject -m -o org", desc: t('cli.generate.project.example.from_org')
-        prj.example "imori generate project MyProject -m -r -o org", desc:t('cli.generate.project.example.retrieve')
+        prj.example "alet generate project MyProject", desc: t('cli.generate.project.example.default')
+        prj.example "alet generate project MyProject -m", desc: t('cli.generate.project.example.manifest')
+        prj.example "alet generate project MyProject -m -o org", desc: t('cli.generate.project.example.from_org')
+        prj.example "alet generate project MyProject -mr -o org", desc:t('cli.generate.project.example.retrieve')
 
         prj.action do |_, options, args|
-          Imori::Project.generate(args.first, **options)
+          Alet::Project.generate(args.first, **options)
         end
       end
     end

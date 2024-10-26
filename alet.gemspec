@@ -1,21 +1,21 @@
-require_relative 'lib/imori/version'
+require_relative 'lib/alet/version'
 
 Gem::Specification.new do |s|
-  s.name        = "imori"
-  s.version     = Imori::VERSION
+  s.name        = "alet"
+  s.version     = Alet::VERSION
   s.summary     = "A Ruby-styled Salesforce console utility"
   s.description = "Salesforce console utility for Ruby users"
   s.authors     = ["Takanobu Maekawa"]
   s.files       = Dir['lib/**/*.*']
-  s.homepage    = "https://github.com/tmkw/imori"
+  s.homepage    = "https://github.com/tmkw/alet"
   s.license     = 'BSD-2-Clause'
   s.required_ruby_version = '>= 3.3.3'
   s.requirements = 'Salesforce CLI ( >= 2.56.7): https://developer.salesforce.com/tools/salesforcecli'
   s.metadata = {
-    "homepage_uri" => "https://github.com/tmkw/imori"
+    "homepage_uri" => "https://github.com/tmkw/alet"
   }
   s.bindir = 'bin'
-  s.executables = 'imori'
+  s.executables = 'alet'
   s.add_dependency 'gli', '~>2.21.5'
   s.add_dependency 'sf_cli', '~>1.2'
   s.add_dependency 'yamori', '~>0.1'
