@@ -1,0 +1,104 @@
+ja:
+  cli:
+    desc:            RubyスタイルのSalesforceコンソールユーティリティ
+    target_org:      ユーザー名またはSF組織の別名
+    irb:
+      desc:          irbセッションを開始
+      example:
+        default:     irbセッションを開始.
+        target_org:  SF組織の別名またはログインユーザー名を指定してirbを起動
+    generate:
+      desc:          Salesforce DXプロジェクトに関連した資材を生成する
+      project:
+        desc:        salesforce DX projectを生成する
+        target_org:  マニフェストファイルとソースファイルの読み込み先となるSF組織の別名またはその組織のユーザー名
+        manifest:    マニフェストファイル(package.xml)を生成する
+        retrieve:    マニフェストファイルの内容を元にSF組織からソースファイルを取得する
+        open_editor: プロジェクト構築完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
+        example:
+          default:   a Salesfore DXプロジェクトのディレクトリを作成する
+          manifest:  プロジェクトディレクトリにマニフェストファイル(package.xml)を含める
+          from_org:  接続組織のメタデータ情報を元にマニフェストファイルの内容を書き込む.
+          retrieve:  メタデータのソースファイルをDXプロジェクト内に生成する
+  connection:
+    description: 現在のSalesforce組織との接続情報
+  apex:
+    description: Apexコードを実行する
+  gen:
+    description: 1つ以上のsObjectクラスを生成する
+    help: |
+      ## Name
+      gen
+
+      ## SYNOPSIS
+      gen sObjectType...
+
+      ## DESCRIPTION
+      1つ以上のsObjectクラスを生成する
+
+      ## ARGUMENTS
+      **sObjectType** sObjectの型名
+
+      ## EXAMPLES
+      ```shell
+      gen Account Contact User
+      ```
+  query:
+    description: SOQLを使ってレコードを検索する 
+    help: |
+      ## NAME
+      query
+
+      ## SYNOPSIS
+      query SOQL
+
+      ## DESCRIPTION
+      SOQLを使ってレコードを検索する
+
+      ## ARGUMENTS
+      **SOQL** - SOQL(SELECT 構文)
+
+      ## EXAMPLE
+      ```shell
+      query SELECT Id, Name FROM Account Name LIKE '%hoge%'
+      ```
+  sh:
+    description: シェルコマンドを実行する
+    help: |
+      ## NAME
+      sh
+
+      ## SYNOPSIS
+      sh [command]
+
+      ## DESCRIPTION
+      シェルコマンドを実行する
+
+      ## ARGUMENTS
+      **command** - 実行するコマンドライン
+
+      コマンドを指定せずにEnterを押すとインタラクティブモードに移行する。インタラクティブモードから抜けるにはCTR-Dを押す
+
+      ## EXAMPLE
+      ```shell
+      sh ls -aF
+      ```
+  export:
+    description: レコードをエクスポートする
+    help: |
+      ## NAME
+      export
+
+      ## SYNOPSIS
+      export SOQL
+
+      ## DESCRIPTION
+      レコードをエクスポートする.正常に終了するとカレントディレクトリにCSVファイルが生成される.
+
+      ## ARGUMENTS
+      **SOQL** SOQL(SELECT構文)
+
+      ## EXAMPLE
+      ```shell
+      export SELECT Id, Name FROM Account
+      ```

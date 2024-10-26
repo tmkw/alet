@@ -1,0 +1,4 @@
+---
+BUNDLE_SET: "path vendor/bundle with development"
+BUNDLE_PATH: "vendor/bundle"
+BUNDLE_WITH: "development"
