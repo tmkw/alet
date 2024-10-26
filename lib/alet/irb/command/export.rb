@@ -1,5 +1,5 @@
 class Export < IRB::Command::Base
-  category "Imori"
+  category "Alet"
   description t('export.description')
   help_message TTY::Markdown.parse t('export.help')
 
@@ -14,7 +14,7 @@ class Export < IRB::Command::Base
 
     return if soql.nil?
 
-    csv = sf.data.query(soql, format: :csv, target_org: ::Imori.config.connection.alias)
+    csv = sf.data.query(soql, format: :csv, target_org: ::Alet.config.connection.alias)
 
     filename = "#{Time.now.strftime('%Y%m%d%H%M%S')}_export.csv"
     File.open(filename, 'w'){|f| f.write(csv) }

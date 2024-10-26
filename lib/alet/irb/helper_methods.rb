@@ -4,7 +4,7 @@ class CurrentConnection < IRB::HelperMethod::Base
   description t('connection.description')
 
   def execute
-    info = Imori.config.connection
+    info = Alet.config.connection
     table =
       TTY::Table.new(rows: [
         [:id, info.id],
@@ -25,9 +25,9 @@ class Apex < IRB::HelperMethod::Base
   def execute(apex_code = nil, verbose: false)
     result =
       if apex_code
-        sf.apex.run target_org: Imori.config.conn.alias, file: StringIO.new(apex_code)
+        sf.apex.run target_org: Alet.config.conn.alias, file: StringIO.new(apex_code)
       else
-        sf.apex.run target_org: Imori.config.conn.alias
+        sf.apex.run target_org: Alet.config.conn.alias
       end
 
     IRB.conf[:INSPECT_MODE] = false

@@ -1,12 +1,12 @@
 require 'sf_cli'
 
-module Imori
+module Alet
   module Project
     def self.generate(project_name, params)
       base_dir        = Dir.pwd
       target_org      = params[:"target-org"]
       retrieve_source = params[:retrieve]
-      editor          = params[:editor]
+      editor          = params[:"editor-open"]
 
       sf.project.generate project_name, manifest: true
 
