@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.*']
   s.homepage    = "https://github.com/tmkw/alet"
   s.license     = 'BSD-2-Clause'
-  s.required_ruby_version = '>= 3.3.3'
+  s.required_ruby_version = '>= 3.3.4'
   s.requirements = 'Salesforce CLI ( >= 2.56.7): https://developer.salesforce.com/tools/salesforcecli'
   s.metadata = {
     "homepage_uri" => "https://github.com/tmkw/alet"
