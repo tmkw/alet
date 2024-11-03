@@ -7,7 +7,7 @@ require 'tty-table'
 require 'pastel'
 require 'i18n'
 
-I18n.locale = IRB.conf[:LC_MESSAGES].lang.to_sym
+I18n.locale = IRB.conf[:LC_MESSAGES].lang&.to_sym || :en
 
 #
 # load commands
