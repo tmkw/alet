@@ -111,3 +111,27 @@ en:
 
       ## DESCRIPTION
       show current connection settings
+  grep:
+    description: find sObject
+    help: |
+      ## NAME
+      grep
+
+      ## SYNOPSIS
+      grep regexp
+
+      ## DESCRIPTION
+      find sobject by name or label 
+
+      ## ARGUMENTS
+      **regexp** regular expression that indicates name or label
+
+      ## OPTIONS
+      **-l, [---label])** find by only label
+      **-n, [---api-name])** find by only api name
+
+      ## EXAMPLE
+      ```shell
+      grep Account
+      grep -n Account*
+      ```

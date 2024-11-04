@@ -1,8 +1,4 @@
 module Alet
-  def self.config
-    @config ||= Config.new
-  end
-
   class Config
     def connection
       @connection

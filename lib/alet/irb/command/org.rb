@@ -1,5 +1,3 @@
-require 'optparse'
-
 class Org < IRB::Command::Base
   category "Alet"
   description t('org.description')
