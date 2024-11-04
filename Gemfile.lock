@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    byebug (11.1.3)
     concurrent-ruby (1.3.4)
     gli (2.22.0)
     i18n (1.14.6)
@@ -40,6 +41,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  byebug
   gli (~> 2.22.0)
   i18n (~> 1.14.6)
   pastel (~> 0.8.0)
