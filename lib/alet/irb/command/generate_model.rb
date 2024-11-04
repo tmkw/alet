@@ -5,6 +5,6 @@ class GenerateModel < IRB::Command::Base
 
   def execute(arg)
     object_types = arg.split(' ').map{|s| s.tr(' ', '')}
-    Yamori.generate(*object_types)
+    SObjectModel.generate(*object_types)
   end
 end

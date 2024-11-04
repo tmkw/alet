@@ -12,7 +12,8 @@ GEM
     rake (13.2.1)
     rexml (3.3.9)
     rouge (4.4.0)
-    sf_cli (1.2.3)
+    sf_cli (1.2.4)
+    sobjectmodel (0.1.2)
     strings (0.2.1)
       strings-ansi (~> 0.2)
       unicode-display_width (>= 1.5, < 3.0)
@@ -33,7 +34,6 @@ GEM
       tty-screen (~> 0.8)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
-    yamori (0.1.0)
 
 PLATFORMS
   ruby
@@ -44,10 +44,10 @@ DEPENDENCIES
   i18n (~> 1.14.6)
   pastel (~> 0.8.0)
   rake
-  sf_cli (~> 1.2.3)
+  sf_cli (~> 1.2.4)
+  sobjectmodel (~> 0.1.2)
   tty-markdown (~> 0.7.2)
   tty-table (~> 0.12.0)
-  yamori (~> 0.1)
 
 BUNDLED WITH
    2.5.11
