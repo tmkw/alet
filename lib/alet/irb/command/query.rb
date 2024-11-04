@@ -1,4 +1,4 @@
-require 'yamori/query_condition'
+require 'sobject_model/query_condition'
 
 class Query < IRB::Command::Base
   category "Alet"
@@ -11,7 +11,7 @@ class Query < IRB::Command::Base
         arg
       else
         object = eval(arg)
-        object.to_soql if object&.instance_of? Yamori::QueryMethods::QueryCondition
+        object.to_soql if object&.instance_of? SObjectModel::QueryMethods::QueryCondition
       end
 
     return if soql.nil?

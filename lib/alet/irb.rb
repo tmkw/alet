@@ -1,5 +1,5 @@
 require 'sf_cli'
-require 'yamori'
+require 'sobject_model'
 require 'alet/config'
 require 'irb/command/base'
 require 'tty-markdown'
@@ -40,7 +40,7 @@ Alet.config.connection = conn
 
 sf.org.login_web target_org: conn.alias, instance_url: conn.instance_url unless conn.connected?
 
-Yamori.connect(
+SObjectModel.connect(
   :rest,
   instance_url: conn.instance_url,
   access_token: conn.access_token,
