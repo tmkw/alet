@@ -76,7 +76,8 @@ en:
       ## ARGUMENTS
       **command** - shell command
 
-      If no command is specified, it starts interactive mode. To escape interactive mode, press CTRL-D
+      If no command is specified, it starts interactive mode.
+      To escape interactive mode, press CTRL-D (CTR-Z for Windows)
 
       ## EXAMPLE
       ```shell
