@@ -112,3 +112,28 @@ ja:
 
       ## DESCRIPTION
       現在のSalesforce組織との接続情報を表示する
+  grep:
+    description: オブジェクト(sObject)を探す
+    help: |
+      ## NAME
+      grep
+
+      ## SYNOPSIS
+      grep regexp
+
+      ## DESCRIPTION
+      ラベルもしくはAPI名のどちらかでオブジェクト(sObject)の存在を探す。
+      sObjectであれば全てが検索対象となる。
+
+      ## ARGUMENTS
+      **regexp** オブジェクトのラベルまたはAPI名を示す正規表現
+
+      ## OPTIONS
+      **-l, [---label]**    ラベル名のみで探す
+      **-n, [---api-name]** API名のみで探す
+
+      ## EXAMPLE
+      ```shell
+      grep Account
+      grep -n Account*
+      ```

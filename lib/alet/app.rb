@@ -1,6 +1,6 @@
 require 'gli'
 require 'irb'
-require 'alet/config'
+require 'alet'
 require 'alet/utils/irb'
 require 'alet/generate/project'
 require 'alet/version'

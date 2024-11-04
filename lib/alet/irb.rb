@@ -1,6 +1,6 @@
 require 'sf_cli'
 require 'sobject_model'
-require 'alet/config'
+require 'alet'
 require 'irb/command/base'
 require 'tty-markdown'
 require 'tty-table'
@@ -31,8 +31,10 @@ require_relative 'irb/command/query'
 require_relative 'irb/command/sh'
 require_relative 'irb/command/export'
 require_relative 'irb/command/org'
+require_relative 'irb/command/grep'
 
 IRB::Command.register :org, Org
+IRB::Command.register :grep, Grep
 IRB::Command.register :query, Query
 IRB::Command.register :export, Export
 IRB::Command.register :sh, Shell
@@ -49,14 +51,17 @@ IRB::HelperMethod.register(:apex, Apex)
 # set connection
 #
 conn = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
-
 Alet.config.connection = conn
 
 sf.org.login_web target_org: conn.alias, instance_url: conn.instance_url unless conn.connected?
 
-SObjectModel.connect(
-  :rest,
-  instance_url: conn.instance_url,
-  access_token: conn.access_token,
-  api_version:  conn.api_version
-)
+rest_client = SObjectModel::Rest::Client.new(
+                instance_url: conn.instance_url,
+                access_token: conn.access_token,
+                api_version: conn.api_version)
+
+adapter = SObjectModel::Adapter::Rest.new(rest_client)
+
+SObjectModel.connection = adapter
+
+Alet.rest_client = rest_client

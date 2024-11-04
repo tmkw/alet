@@ -1,3 +1,4 @@
 vendor
 *.gem
 *.swp
+*.byebug_history
