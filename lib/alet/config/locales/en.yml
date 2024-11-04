@@ -20,8 +20,6 @@ en:
           manifest:  create a Salesfore DX project with manifest file (package.xml)
           from_org:  The manifest file is built based on org
           retrieve:  The manifest file and medadata source files are built based on org. This option is only available with -o option.
-  connection:
-    description: Current connection with Salesforce
   apex:
     description: Execute Apex code
   gen:
@@ -102,3 +100,14 @@ en:
       ```shell
       export SELECT Id, Name FROM Account
       ```
+  org:
+    description: Current connection with Salesforce
+    help: |
+      ## NAME
+      org
+
+      ## SYNOPSIS
+      org
+
+      ## DESCRIPTION
+      show current connection settings
