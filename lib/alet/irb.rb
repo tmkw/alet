@@ -30,18 +30,18 @@ require_relative 'irb/command/generate_model'
 require_relative 'irb/command/query'
 require_relative 'irb/command/sh'
 require_relative 'irb/command/export'
+require_relative 'irb/command/org'
 
-IRB::Command.register :gen, GenerateModel
+IRB::Command.register :org, Org
 IRB::Command.register :query, Query
 IRB::Command.register :export, Export
 IRB::Command.register :sh, Shell
+IRB::Command.register :gen, GenerateModel
 
 #
 # load helper methods
 #
 require_relative 'irb/helper_methods'
-
-IRB::HelperMethod.register(:conn, CurrentConnection)
 IRB::HelperMethod.register(:apex, Apex)
 
 

@@ -20,8 +20,6 @@ ja:
           manifest:  プロジェクトディレクトリにマニフェストファイル(package.xml)を含める
           from_org:  接続組織のメタデータ情報を元にマニフェストファイルの内容を書き込む.
           retrieve:  メタデータのソースファイルをDXプロジェクト内に生成する
-  connection:
-    description: 現在のSalesforce組織との接続情報
   apex:
     description: Apexコードを実行する
   gen:
@@ -103,3 +101,14 @@ ja:
       ```shell
       export SELECT Id, Name FROM Account
       ```
+  org:
+    description: 現在のSalesforce組織との接続情報
+    help: |
+      ## NAME
+      org
+
+      ## SYNOPSIS
+      org
+
+      ## DESCRIPTION
+      現在のSalesforce組織との接続情報を表示する
