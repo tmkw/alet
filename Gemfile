@@ -12,4 +12,5 @@ gem 'i18n', '~>1.14.6'
 
 group :development do
   gem 'rake'
+  gem 'byebug'
 end

@@ -7,7 +7,21 @@ require 'tty-table'
 require 'pastel'
 require 'i18n'
 
+#
+# set locale
+#
 I18n.locale = IRB.conf[:LC_MESSAGES].lang&.to_sym || :en
+
+#
+# set prompt
+#
+IRB.conf[:PROMPT][:ALET] = {
+  :PROMPT_I => "alet(#{Alet.config.cli_options[:"target-org"]}):%03n:%i> ",
+  :PROMPT_S => "alet(#{Alet.config.cli_options[:"target-org"]}):%03n:%i%l ",
+  :PROMPT_C => "alet(#{Alet.config.cli_options[:"target-org"]}):%03n:%i* ",
+  :RETURN => "=> %s\n"
+}
+IRB.conf[:PROMPT_MODE] = :ALET
 
 #
 # load commands
