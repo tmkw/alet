@@ -32,9 +32,11 @@ require_relative 'irb/command/sh'
 require_relative 'irb/command/export'
 require_relative 'irb/command/org'
 require_relative 'irb/command/grep'
+require_relative 'irb/command/describe'
 
 IRB::Command.register :org, Org
 IRB::Command.register :grep, Grep
+IRB::Command.register :desc, Describe
 IRB::Command.register :query, Query
 IRB::Command.register :export, Export
 IRB::Command.register :sh, Shell
