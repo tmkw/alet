@@ -119,7 +119,7 @@ ja:
       grep
 
       ## SYNOPSIS
-      grep regexp
+      grep [-ln] regexp
 
       ## DESCRIPTION
       ラベルもしくはAPI名のどちらかでオブジェクト(sObject)の存在を探す。
@@ -136,4 +136,49 @@ ja:
       ```shell
       grep Account
       grep -n Account*
+      ```
+  desc:
+    description: オブジェクトの概要を表示する
+    table:
+      field: 【項目】
+      relation: 【参照関係】
+      record_type: 【レコードタイプ】
+    column:
+      label: ラベル
+      name:  API名
+      type:  データ型
+      relation_name:  リレーション名
+      relation_type:  種別
+      relation_class: クラス名
+      relation_field: 項目名
+      record_type_name: レコードタイプ名
+      record_type_id:   レコードタイプID
+      record_type_developer_name: developer name
+    relation_type:
+      parent: 子-親
+      child: 親-子
+    help: |
+      ## NAME
+      desc
+
+      ## SYNOPSIS
+      desc [-rta] object-name
+
+      ## DESCRIPTION
+      オブジェクトの概要を表示する
+
+      ## ARGUMENTS
+      **object-name** オブジェクト名(API名)
+
+      ## OPTIONS
+      **-r, [---relation]** リレーションを表示
+      **-t, [---record-type]** レコードタイプを表示
+      **-a, [---all]** 全ての概要を表示
+
+      もし何もオプションが指定されなければ各項目の概要を表示する
+
+      ## EXAMPLE
+      ```shell
+      desc Account     # 取引先の項目を表示する
+      desc -r Account  # 取引先のリレーションを表示する
       ```

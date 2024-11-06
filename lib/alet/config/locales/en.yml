@@ -118,7 +118,7 @@ en:
       grep
 
       ## SYNOPSIS
-      grep regexp
+      grep [-ln] regexp
 
       ## DESCRIPTION
       find sobject by name or label 
@@ -127,11 +127,56 @@ en:
       **regexp** regular expression that indicates name or label
 
       ## OPTIONS
-      **-l, [---label])** find by only label
-      **-n, [---api-name])** find by only api name
+      **-l, [---label]** find by only label
+      **-n, [---api-name]** find by only api name
 
       ## EXAMPLE
       ```shell
       grep Account
       grep -n Account*
+      ```
+  desc:
+    description: show object summary
+    table:
+      field: Fields
+      relation: Relations
+      record_type: RecordType
+    column:
+      label: label
+      name:  name
+      type:  type
+      relation_name:  relation name
+      relation_type:  relation type
+      relation_class:  class name
+      relation_field:  field name
+      record_type_name: name
+      record_type_id:   id
+      record_type_developer_name: developer name
+    relation_type:
+      parent: child-parent
+      child: parent-child
+    help: |
+      ## NAME
+      desc
+
+      ## SYNOPSIS
+      desc [-rta] object-name
+
+      ## DESCRIPTION
+      show an object summary
+
+      ## ARGUMENTS
+      **object-name** object name
+
+      ## OPTIONS
+      **-r, [---relation]** show relationships
+      **-t, [---record-type]** show record types
+      **-a, [---all])** show all summary
+
+      if there is no options only field summary is shown.
+
+      ## EXAMPLE
+      ```shell
+      desc Account    # show Account's field summary
+      desc -r Account # show Account's relationships
       ```
