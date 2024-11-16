@@ -31,5 +31,8 @@ class Grep < IRB::Command::Base
               sobjects.map{ |so| [so['name'], so['label']] }
               )
     puts table.render :unicode
+  rescue SObjectModel::Rest::RequestError => e
+    pastel = Pastel.new
+    puts pastel.red(e.message)
   end
 end

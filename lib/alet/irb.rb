@@ -53,18 +53,24 @@ IRB::HelperMethod.register(:conn, Conn)
 #
 # set connection
 #
-org = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
-Alet.config.org = org
+begin
+  org = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
+  Alet.config.org = org
 
-sf.org.login_web target_org: org.alias, instance_url: org.instance_url unless org.connected?
+  sf.org.login_web target_org: org.alias, instance_url: org.instance_url unless org.connected?
 
-rest_client = SObjectModel::Rest::Client.new(
-                instance_url: org.instance_url,
-                access_token: org.access_token,
-                api_version: org.api_version)
+  rest_client = SObjectModel::Rest::Client.new(
+                  instance_url: org.instance_url,
+                  access_token: org.access_token,
+                  api_version: org.api_version)
 
-adapter = SObjectModel::Adapter::Rest.new(rest_client)
+  adapter = SObjectModel::Adapter::Rest.new(rest_client)
 
-SObjectModel.connection = adapter
+  SObjectModel.connection = adapter
 
-Alet.rest_client = rest_client
+  Alet.rest_client = rest_client
+rescue => e
+  pastel = Pastel.new
+  puts pastel.red(e.message.sub("See more help with --help", ''))
+  exit(1)
+end
