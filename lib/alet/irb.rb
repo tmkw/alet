@@ -47,20 +47,21 @@ IRB::Command.register :gen, GenerateModel
 #
 require_relative 'irb/helper_methods'
 IRB::HelperMethod.register(:apex, Apex)
+IRB::HelperMethod.register(:conn, Conn)
 
 
 #
 # set connection
 #
-conn = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
-Alet.config.connection = conn
+org = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
+Alet.config.org = org
 
-sf.org.login_web target_org: conn.alias, instance_url: conn.instance_url unless conn.connected?
+sf.org.login_web target_org: org.alias, instance_url: org.instance_url unless org.connected?
 
 rest_client = SObjectModel::Rest::Client.new(
-                instance_url: conn.instance_url,
-                access_token: conn.access_token,
-                api_version: conn.api_version)
+                instance_url: org.instance_url,
+                access_token: org.access_token,
+                api_version: org.api_version)
 
 adapter = SObjectModel::Adapter::Rest.new(rest_client)
 

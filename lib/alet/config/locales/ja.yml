@@ -22,6 +22,8 @@ ja:
           retrieve:  メタデータのソースファイルをDXプロジェクト内に生成する
   apex:
     description: Apexコードを実行する
+  conn:
+    description: 接続設定の表示
   gen:
     description: 1つ以上のsObjectクラスを生成する
     help: |
