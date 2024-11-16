@@ -14,7 +14,7 @@ class Export < IRB::Command::Base
 
     return if soql.nil?
 
-    csv = sf.data.query(soql, format: :csv, target_org: ::Alet.config.connection.alias)
+    csv = sf.data.query(soql, format: :csv, target_org: ::Alet.config.org.alias)
 
     filename = "#{Time.now.strftime('%Y%m%d%H%M%S')}_export.csv"
     File.open(filename, 'w'){|f| f.write(csv) }

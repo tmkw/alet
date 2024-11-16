@@ -22,6 +22,8 @@ en:
           retrieve:  The manifest file and medadata source files are built based on org. This option is only available with -o option.
   apex:
     description: Execute Apex code
+  conn:
+    description: Show connection settings
   gen:
     description: Generate sObject classes
     help: |
