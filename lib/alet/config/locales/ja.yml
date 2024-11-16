@@ -159,6 +159,8 @@ ja:
     relation_type:
       parent: 子-親
       child: 親-子
+    error:
+      notfound: 該当するオブジェクトがありません
     help: |
       ## NAME
       desc

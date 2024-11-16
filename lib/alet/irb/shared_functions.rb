@@ -12,4 +12,7 @@ def show_org_settings
       [:access_token, info.access_token]
     ])
   puts table.render :unicode
+rescue => e
+  pastel = Pastel.new
+  puts pastel.red(e.message.sub("See more help with --help", ''))
 end

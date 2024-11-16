@@ -9,6 +9,7 @@ class Describe < IRB::Command::Base
   help_message TTY::Markdown.parse t('desc.help')
 
   def execute(arg)
+    pastel = Pastel.new
     argv = arg.split(' ')
     opt = OptionParser.new
     opt.on '-r', '--relation'
@@ -31,6 +32,10 @@ class Describe < IRB::Command::Base
     else
       show_fields(schema)
     end
+  rescue SObjectModel::Rest::RequestError => e
+    puts pastel.red(e.message)
+  rescue SObjectModel::Rest::RecordNotFoundError => e
+    puts pastel.red(t('desc.error.notfound'))
   end
 
   def show_fields(schema)

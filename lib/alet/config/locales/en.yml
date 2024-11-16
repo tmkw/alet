@@ -157,6 +157,8 @@ en:
     relation_type:
       parent: child-parent
       child: parent-child
+    error:
+      notfound: Not Found
     help: |
       ## NAME
       desc
