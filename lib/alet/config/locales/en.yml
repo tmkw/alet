@@ -3,14 +3,14 @@ en:
     desc:            A Ruby-styled Salesforce console utility
     target_org:      Username or alias of the target org
     irb:
-      desc:          start irb session(if there is no subcommand specified, irb gets default)
+      desc:          Start irb session(if there is no subcommand specified, irb gets default)
       example:
-        default:     start irb session
-        target_org:  start irb session with specifying target org
-    generate:
-      desc:          generate resources that are related to Salesforce DX project
-      project:
-        desc:        generate salesforce DX project
+        default:     Start irb session
+        target_org:  Start irb session with specifying target org
+    project:
+      desc:          Create/Update a Salesforce DX project
+      generate:
+        desc:        Generate a salesforce DX project
         target_org:  Username or alias of the target org, which the manifest and source files are generated based on
         manifest:    Generate a manifest (package.xml)
         retrieve:    Retrieve source files from org

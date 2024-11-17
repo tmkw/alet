@@ -44,27 +44,27 @@ module Alet
       end
     end
 
-    desc t('cli.generate.desc')
-    command [:generate, :g] do |c|
-      c.desc desc t('cli.generate.project.desc')
+    desc t('cli.project.desc')
+    command [:project, :p] do |c|
+      c.desc desc t('cli.project.generate.desc')
       c.arg_name 'project_name'
-      c.command :project do |prj|
-        prj.desc t('cli.generate.project.target_org')
+      c.command [:generate, :g] do |prj|
+        prj.desc t('cli.project.generate.target_org')
         prj.flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
 
-        prj.desc t('cli.generate.project.manifest')
+        prj.desc t('cli.project.generate.manifest')
         prj.switch [:m, :manifest], negatable: false
 
-        prj.desc t('cli.generate.project.open_editor')
+        prj.desc t('cli.project.generate.open_editor')
         prj.switch [:e, 'editor-open'], negatable: false
 
-        prj.desc t('cli.generate.project.retrieve')
+        prj.desc t('cli.project.generate.retrieve')
         prj.switch [:r, 'retrieve'], negatable: false
 
-        prj.example "alet generate project MyProject", desc: t('cli.generate.project.example.default')
-        prj.example "alet generate project MyProject -m", desc: t('cli.generate.project.example.manifest')
-        prj.example "alet generate project MyProject -m -o org", desc: t('cli.generate.project.example.from_org')
-        prj.example "alet generate project MyProject -mr -o org", desc:t('cli.generate.project.example.retrieve')
+        prj.example "alet generate project MyProject", desc: t('cli.project.generate.example.default')
+        prj.example "alet generate project MyProject -m", desc: t('cli.project.generate.example.manifest')
+        prj.example "alet generate project MyProject -m -o org", desc: t('cli.project.generate.example.from_org')
+        prj.example "alet generate project MyProject -mr -o org", desc:t('cli.project.generate.example.retrieve')
 
         prj.action do |_, options, args|
           Alet::Project.generate(args.first, **options)

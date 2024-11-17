@@ -8,12 +8,15 @@ module Alet
       retrieve_source = params[:retrieve]
       editor          = params[:"editor-open"]
 
-      sf.project.generate project_name, manifest: true
+      output = sf.project.generate project_name, manifest: true, raw_output: true
+      puts output
 
       Dir.chdir project_name
 
-      sf.project.generate_manifest from_org: target_org, output_dir: 'manifest' if target_org
-      sf.project.retrieve_start manifest: 'manifest/package.xml', target_org: target_org if retrieve_source
+      output = sf.project.generate_manifest from_org: target_org, output_dir: 'manifest', raw_output: true if target_org
+      puts output
+
+      sf.project.retrieve_start manifest: 'manifest/package.xml', target_org: target_org, raw_output: true if retrieve_source
       system 'code .' if editor
     ensure
       Dir.chdir base_dir
