@@ -26,23 +26,6 @@ class Apex < IRB::HelperMethod::Base
   end
 end
 
-class Conn < IRB::HelperMethod::Base
-  description t('conn.description')
-
-  def execute
-    puts '【Current Org settings】'
-    show_org_settings
-    puts '【Rest Client settings】'
-    table =
-      TTY::Table.new(rows: [
-        [:instance_url, Alet.rest_client.instance_url],
-        [:access_token, Alet.rest_client.access_token],
-        [:api_version, Alet.rest_client.api_version],
-      ])
-    puts table.render :unicode
-  end
-end
-
 class SObjectModelSettings < IRB::HelperMethod::Base
   description t('sobjectmodel.description')
 

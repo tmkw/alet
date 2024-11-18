@@ -24,8 +24,6 @@ en:
         desc:        Update a salesforce DX project based on current org
   apex:
     description: Execute Apex code
-  conn:
-    description: Show connection settings
   sobjectmodel:
     description: Show SObjectModel classes that have been generated already
     noclass:     No class is generated in this session
@@ -190,3 +188,15 @@ en:
       desc Account    # show Account's field summary
       desc -r Account # show Account's relationships
       ```
+  conn:
+    description: connection settings
+    invalid_subcommand: invalid subcommand
+    help: |
+      ## NAME
+      conn
+
+      ## SYNOPSIS
+      conn [reset]
+
+      ## DESCRIPTION
+      Show current connection settings when no subcommand is specified. Or reset the connection when "reset" subcommand is executed.
