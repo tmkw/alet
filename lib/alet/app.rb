@@ -2,7 +2,7 @@ require 'gli'
 require 'irb'
 require 'alet'
 require 'alet/utils/irb'
-require 'alet/generate/project'
+require 'alet/project'
 require 'alet/version'
 require 'i18n'
 
@@ -46,12 +46,13 @@ module Alet
     command [:project, :p] do |prj|
       prj.desc desc t('cli.project.generate.desc')
       prj.arg_name 'project_name'
+
+      prj.desc t('cli.project.open_editor')
+      prj.switch [:e, 'editor-open'], negatable: false
+
       prj.command [:generate, :g] do |gen|
         gen.desc t('cli.project.generate.manifest')
         gen.switch [:m, :manifest], negatable: false
-
-        gen.desc t('cli.project.generate.open_editor')
-        gen.switch [:e, 'editor-open'], negatable: false
 
         gen.desc t('cli.project.generate.retrieve')
         gen.switch [:r, 'retrieve'], negatable: false
@@ -67,6 +68,7 @@ module Alet
         end
       end
 
+      prj.desc desc t('cli.project.update.desc')
       prj.command [:update, :u] do |update|
         update.action do |global_options, _options, args|
           options = global_options.merge _options

@@ -9,17 +9,19 @@ en:
         target_org:  Start irb session with specifying target org
     project:
       desc:          Create/Update a Salesforce DX project
+      open_editor:   Open editor(vs code) to edit the project
       generate:
         desc:        Generate a salesforce DX project
         target_org:  Username or alias of the target org, which the manifest and source files are generated based on
         manifest:    Generate a manifest (package.xml)
         retrieve:    Retrieve source files from org
-        open_editor: open editor(vs code) to edit the project
         example:
           default:   create a Salesfore DX project
           manifest:  create a Salesfore DX project with manifest file (package.xml)
           from_org:  The manifest file is built based on org
           retrieve:  The manifest file and medadata source files are built based on org. This option is only available with -o option.
+      update:
+        desc:        Update a salesforce DX project based on current org
   apex:
     description: Execute Apex code
   conn:
