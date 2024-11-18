@@ -2,7 +2,7 @@ require 'gli'
 require 'irb'
 require 'alet'
 require 'alet/utils/irb'
-require 'alet/generate/project'
+require 'alet/project'
 require 'alet/version'
 require 'i18n'
 
@@ -29,11 +29,9 @@ module Alet
     desc t('cli.target_org')
     flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
 
-
     desc t('cli.irb.desc')
     command :irb do |c|
       c.desc desc t('cli.target_org')
-      c.flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
 
       c.example "alet", desc: t('cli.irb.example.default')
       c.example "alet -o org", desc: t('cli.irb.example.target_org')
@@ -44,30 +42,37 @@ module Alet
       end
     end
 
-    desc t('cli.generate.desc')
-    command [:generate, :g] do |c|
-      c.desc desc t('cli.generate.project.desc')
-      c.arg_name 'project_name'
-      c.command :project do |prj|
-        prj.desc t('cli.generate.project.target_org')
-        prj.flag [:o, 'target-org'], default_value: nil, arg_name: 'org'
+    desc t('cli.project.desc')
+    command [:project, :p] do |prj|
+      prj.desc desc t('cli.project.generate.desc')
+      prj.arg_name 'project_name'
 
-        prj.desc t('cli.generate.project.manifest')
-        prj.switch [:m, :manifest], negatable: false
+      prj.desc t('cli.project.open_editor')
+      prj.switch [:e, 'editor-open'], negatable: false
 
-        prj.desc t('cli.generate.project.open_editor')
-        prj.switch [:e, 'editor-open'], negatable: false
+      prj.command [:generate, :g] do |gen|
+        gen.desc t('cli.project.generate.manifest')
+        gen.switch [:m, :manifest], negatable: false
 
-        prj.desc t('cli.generate.project.retrieve')
-        prj.switch [:r, 'retrieve'], negatable: false
+        gen.desc t('cli.project.generate.retrieve')
+        gen.switch [:r, 'retrieve'], negatable: false
 
-        prj.example "alet generate project MyProject", desc: t('cli.generate.project.example.default')
-        prj.example "alet generate project MyProject -m", desc: t('cli.generate.project.example.manifest')
-        prj.example "alet generate project MyProject -m -o org", desc: t('cli.generate.project.example.from_org')
-        prj.example "alet generate project MyProject -mr -o org", desc:t('cli.generate.project.example.retrieve')
+        gen.example "alet generate project MyProject", desc: t('cli.project.generate.example.default')
+        gen.example "alet generate project MyProject -m", desc: t('cli.project.generate.example.manifest')
+        gen.example "alet -o org generate project MyProject -m", desc: t('cli.project.generate.example.from_org')
+        gen.example "alet -o org generate project MyProject -mr", desc:t('cli.project.generate.example.retrieve')
 
-        prj.action do |_, options, args|
+        gen.action do |global_options, _options, args|
+          options = global_options.merge _options
           Alet::Project.generate(args.first, **options)
+        end
+      end
+
+      prj.desc desc t('cli.project.update.desc')
+      prj.command [:update, :u] do |update|
+        update.action do |global_options, _options, args|
+          options = global_options.merge _options
+          Alet::Project.update(args.first, **options)
         end
       end
     end

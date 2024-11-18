@@ -7,19 +7,21 @@ ja:
       example:
         default:     irbセッションを開始.
         target_org:  SF組織の別名またはログインユーザー名を指定してirbを起動
-    generate:
-      desc:          Salesforce DXプロジェクトに関連した資材を生成する
-      project:
+    project:
+      desc:          Salesforce DXプロジェクトの生成・更新を行う
+      open_editor: プロジェクト構築/更新完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
+      generate:
         desc:        salesforce DX projectを生成する
         target_org:  マニフェストファイルとソースファイルの読み込み先となるSF組織の別名またはその組織のユーザー名
         manifest:    マニフェストファイル(package.xml)を生成する
         retrieve:    マニフェストファイルの内容を元にSF組織からソースファイルを取得する
-        open_editor: プロジェクト構築完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
         example:
-          default:   a Salesfore DXプロジェクトのディレクトリを作成する
+          default:   Salesfore DXプロジェクトのディレクトリを作成する
           manifest:  プロジェクトディレクトリにマニフェストファイル(package.xml)を含める
           from_org:  接続組織のメタデータ情報を元にマニフェストファイルの内容を書き込む.
           retrieve:  メタデータのソースファイルをDXプロジェクト内に生成する
+      update:
+        desc:        現在接続中のSF組織の内容でマニフェストとソースファイルを更新する
   apex:
     description: Apexコードを実行する
   conn:
