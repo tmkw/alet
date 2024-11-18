@@ -33,13 +33,15 @@ require_relative 'irb/command/export'
 require_relative 'irb/command/org'
 require_relative 'irb/command/grep'
 require_relative 'irb/command/describe'
+require_relative 'irb/command/conn'
 
-IRB::Command.register :org, Org
 IRB::Command.register :grep, Grep
 IRB::Command.register :desc, Describe
 IRB::Command.register :query, Query
 IRB::Command.register :export, Export
 IRB::Command.register :sh, Shell
+IRB::Command.register :org, Org
+IRB::Command.register :conn, Conn
 IRB::Command.register :gen, GenerateModel
 
 #
@@ -47,28 +49,15 @@ IRB::Command.register :gen, GenerateModel
 #
 require_relative 'irb/helper_methods'
 IRB::HelperMethod.register(:apex, Apex)
-IRB::HelperMethod.register(:conn, Conn)
+IRB::HelperMethod.register(:sobjectmodel, SObjectModelSettings)
 
 
 #
 # set connection
 #
+require_relative 'irb/shared_functions'
 begin
-  org = sf.org.display target_org: Alet.config.cli_options[:"target-org"]
-  Alet.config.org = org
-
-  sf.org.login_web target_org: org.alias, instance_url: org.instance_url unless org.connected?
-
-  rest_client = SObjectModel::Rest::Client.new(
-                  instance_url: org.instance_url,
-                  access_token: org.access_token,
-                  api_version: org.api_version)
-
-  adapter = SObjectModel::Adapter::Rest.new(rest_client)
-
-  SObjectModel.connection = adapter
-
-  Alet.rest_client = rest_client
+  reset_connection
 rescue => e
   pastel = Pastel.new
   puts pastel.red(e.message.sub("See more help with --help", ''))

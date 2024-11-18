@@ -24,8 +24,10 @@ ja:
         desc:        現在接続中のSF組織の内容でマニフェストとソースファイルを更新する
   apex:
     description: Apexコードを実行する
-  conn:
-    description: 接続設定の表示
+  sobjectmodel:
+    description: 生成済みのSObjectModelクラスを表示
+    noclass:     現セッション内で生成済みのSObjectModelクラスはありません
+    title:       【生成済みのSObjectModelクラス】
   gen:
     description: 1つ以上のsObjectクラスを生成する
     help: |
@@ -188,3 +190,16 @@ ja:
       desc Account     # 取引先の項目を表示する
       desc -r Account  # 取引先のリレーションを表示する
       ```
+  conn:
+    description: SF組織に対する接続設定の表示または設定
+    invalid_subcommand: 指定されたサブコマンドは利用できません
+    help: |
+      ## NAME
+      conn
+
+      ## SYNOPSIS
+      conn [reset]
+
+      ## DESCRIPTION
+      引数なしで呼び出したときは各種接続設定を表示する。
+      resetサブコマンドが指定されたときは、現在接続しているSF組織への接続を更新する.

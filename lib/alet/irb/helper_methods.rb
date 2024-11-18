@@ -26,19 +26,18 @@ class Apex < IRB::HelperMethod::Base
   end
 end
 
-class Conn < IRB::HelperMethod::Base
-  description t('conn.description')
+class SObjectModelSettings < IRB::HelperMethod::Base
+  description t('sobjectmodel.description')
 
   def execute
-    puts '【Current Org settings】'
-    show_org_settings
-    puts '【Rest Client settings】'
+    if SObjectModel.generated_classes.empty?
+      puts t('sobjectmodel.noclass')
+      return
+    end
+
+    puts t('sobjectmodel.title')
     table =
-      TTY::Table.new(rows: [
-        [:instance_url, Alet.rest_client.instance_url],
-        [:access_token, Alet.rest_client.access_token],
-        [:api_version, Alet.rest_client.api_version],
-      ])
-    puts table.render :unicode
+      TTY::Table.new(rows: SObjectModel.generated_classes.each_slice(4).map{|row| row.map(&:name).append('','','','')[0..3]})
+    puts table.render :basic
   end
 end
