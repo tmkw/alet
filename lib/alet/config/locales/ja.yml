@@ -26,6 +26,10 @@ ja:
     description: Apexコードを実行する
   conn:
     description: 接続設定の表示
+  sobjectmodel:
+    description: 生成済みのSObjectModelクラスを表示
+    noclass:     現セッション内で生成済みのSObjectModelクラスはありません
+    title:       【生成済みのSObjectModelクラス】
   gen:
     description: 1つ以上のsObjectクラスを生成する
     help: |

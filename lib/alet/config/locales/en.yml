@@ -26,6 +26,10 @@ en:
     description: Execute Apex code
   conn:
     description: Show connection settings
+  sobjectmodel:
+    description: Show SObjectModel classes that have been generated already
+    noclass:     No class is generated in this session
+    title:       【Generated Classes】
   gen:
     description: Generate sObject classes
     help: |

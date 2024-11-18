@@ -48,6 +48,7 @@ IRB::Command.register :gen, GenerateModel
 require_relative 'irb/helper_methods'
 IRB::HelperMethod.register(:apex, Apex)
 IRB::HelperMethod.register(:conn, Conn)
+IRB::HelperMethod.register(:sobjectmodel, SObjectModelSettings)
 
 
 #
