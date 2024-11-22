@@ -34,6 +34,7 @@ require_relative 'irb/command/org'
 require_relative 'irb/command/grep'
 require_relative 'irb/command/describe'
 require_relative 'irb/command/conn'
+require_relative 'irb/command/gen'
 
 IRB::Command.register :grep, Grep
 IRB::Command.register :desc, Describe
@@ -43,6 +44,7 @@ IRB::Command.register :sh, Shell
 IRB::Command.register :org, Org
 IRB::Command.register :conn, Conn
 IRB::Command.register :model, GenerateModel
+IRB::Command.register :gen, GenerateResource
 
 #
 # load helper methods
