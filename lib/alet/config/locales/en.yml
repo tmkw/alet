@@ -24,28 +24,31 @@ en:
         desc:        Update a salesforce DX project based on current org
   apex:
     description: Execute Apex code
-  sobjectmodel:
-    description: Show SObjectModel classes that have been generated already
-    noclass:     No class is generated in this session
-    title:       【Generated Classes】
-  gen:
-    description: Generate sObject classes
+  model:
+    description: List/Generate sObject classes
+    list:
+      noclass: No class is generated in this session
+      title:   【Generated Classes】
     help: |
       ## Name
-      gen
+      model
 
       ## SYNOPSIS
-      gene sObjectType...
+      model [list|load sObjectType...]
 
       ## DESCRIPTION
-      generate sObject classes
+      1. show sobject model classes that has been generated already.
+      2. generate classes that represent sobjects.
 
       ## ARGUMENTS
-      **sObjectType** sObject type
+      **list** list model classes that has been generated already.
+      **load sObjectType...** generate sObject classes
 
       ## EXAMPLES
       ```shell
-      gen Account Contact User
+      model  # shows sobject model classes that has been generated already.
+      model list # same as above
+      model load Account Contact User # load Account, Contact and User sobject classes
   query:
     description: Query by SOQL
     help: |
