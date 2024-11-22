@@ -42,15 +42,13 @@ IRB::Command.register :export, Export
 IRB::Command.register :sh, Shell
 IRB::Command.register :org, Org
 IRB::Command.register :conn, Conn
-IRB::Command.register :gen, GenerateModel
+IRB::Command.register :model, GenerateModel
 
 #
 # load helper methods
 #
 require_relative 'irb/helper_methods'
 IRB::HelperMethod.register(:apex, Apex)
-IRB::HelperMethod.register(:sobjectmodel, SObjectModelSettings)
-
 
 #
 # set connection

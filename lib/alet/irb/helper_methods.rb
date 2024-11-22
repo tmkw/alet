@@ -26,18 +26,3 @@ class Apex < IRB::HelperMethod::Base
   end
 end
 
-class SObjectModelSettings < IRB::HelperMethod::Base
-  description t('sobjectmodel.description')
-
-  def execute
-    if SObjectModel.generated_classes.empty?
-      puts t('sobjectmodel.noclass')
-      return
-    end
-
-    puts t('sobjectmodel.title')
-    table =
-      TTY::Table.new(rows: SObjectModel.generated_classes.each_slice(4).map{|row| row.map(&:name).append('','','','')[0..3]})
-    puts table.render :basic
-  end
-end

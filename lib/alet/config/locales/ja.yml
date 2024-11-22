@@ -24,28 +24,30 @@ ja:
         desc:        現在接続中のSF組織の内容でマニフェストとソースファイルを更新する
   apex:
     description: Apexコードを実行する
-  sobjectmodel:
-    description: 生成済みのSObjectModelクラスを表示
+  model:
+    description: 生成済みモデルクラスの表示.またはsobjectクラスの生成
     noclass:     現セッション内で生成済みのSObjectModelクラスはありません
     title:       【生成済みのSObjectModelクラス】
-  gen:
-    description: 1つ以上のsObjectクラスを生成する
     help: |
       ## Name
-      gen
+      model
 
       ## SYNOPSIS
-      gen sObjectType...
+      model [list|load sObjectType...]
 
       ## DESCRIPTION
-      1つ以上のsObjectクラスを生成する
+      1. セッション内で既に生成済みのsobjectクラスの一覧表示
+      2. 1つ以上のsobjectクラスを生成する
 
       ## ARGUMENTS
-      **sObjectType** sObjectの型名
+      **list** sobjectクラスの一覧表示.何も引数を指定しない場合はこの挙動を実行する.
+      **load sObjectType...** 1つ以上のsObjectクラスを生成する(sObjectTypeはsobjectの型名)
 
       ## EXAMPLES
       ```shell
-      gen Account Contact User
+      model  # 生成済みsobjectクラスの一覧表示
+      model list # 同上
+      model load Account Contact User # 取引先、取引先責任者およびユーザーオブジェクトのモデルクラスを生成
       ```
   query:
     description: SOQLを使ってレコードを検索する 
