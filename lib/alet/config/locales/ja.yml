@@ -205,3 +205,46 @@ ja:
       ## DESCRIPTION
       引数なしで呼び出したときは各種接続設定を表示する。
       resetサブコマンドが指定されたときは、現在接続しているSF組織への接続を更新する.
+  gen:
+    description: Salesforce DXプロジェクトの資材を生成する
+    error:
+      no_subcommand: サブコマンドを指定してください
+      invalid_subcommand: 利用できないサブコマンドです
+    help: |
+      ## NAME
+      gen
+
+      ## SYNOPSIS
+      gen sub-command ...
+
+      ## DESCRIPTION
+      Salesforce DXプロジェクトの資材を生成する
+
+      ## ARGUMENTS
+      サブコマンドを指定する.サブコマンドごとに必要な引数は異なる.
+      **apex** ApexクラスまたはApexトリガーのソースファイルを生成する
+      **lwc** LWCのソースファイルを生成する
+
+      ### apex サブコマンド
+
+      #### SYNOPSIS
+      gen apex [-t|-e event...|-o object-name] name
+
+      #### DESCRIPTION
+      ApexクラスまたはApexトリガーのソースファイルを生成する.Salesforce DXプロジェクトのルートディレクトリで実行した場合、所定のディレクトリにファイルを生成する.
+
+      #### ARGUMENTS
+      **name** ApexクラスまたはApexトリガーの名前
+
+      #### OPTIONS
+      **-t, ---trigger** トリガーのソースファイルを生成する
+      **-o, ---sobject** トリガーが機能するオブジェクト
+      **-e, ---event** トリガーが機能するイベント.指定可能な値はbi, ai, bu, au, bd, ad, audのみ(先頭から順に"before insert", "after insert", "before update", "after update", "before delete", "after delete", "after undelete"の意).複数のイベントを指定する場合はカンマでつなぐこと。スペースを入れてはならない(例: bi,bu).
+
+      #### EXAMPLE
+      ```shell
+      gen apex MyClass1 # MyClassという名前のApexクラスのソースファイルを生成
+      gen apex MyTrigger --trigger # MyTriggerという名前のトリガーのソースファイルを生成
+      gen apex -t MyTrigger -o Account # トリガーのオブジェクトにAccount(取引先)オブジェクトを指定
+      gen apex -t MyTrigger --event bi,au # トリガーのイベントに before insertとafter update を指定
+      ```

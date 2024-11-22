@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables = 'alet'
   s.add_dependency 'gli', '~>2.22.0'
-  s.add_dependency 'sf_cli', '~>1.2.5'
+  s.add_dependency 'sf_cli', '~>1.3'
   s.add_dependency 'sobjectmodel', '~>0.1.4'
   s.add_dependency 'tty-markdown', '~>0.7.2'
   s.add_dependency 'tty-table', '~>0.12.0'

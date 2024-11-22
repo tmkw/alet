@@ -203,3 +203,46 @@ en:
 
       ## DESCRIPTION
       Show current connection settings when no subcommand is specified. Or reset the connection when "reset" subcommand is executed.
+  gen:
+    description: generate Salesforce DX project resources
+    error:
+      no_subcommand: subcommand isn't specified
+      invalid_subcommand: invalid subcommand
+    help: |
+      ## NAME
+      gen
+
+      ## SYNOPSIS
+      gen sub-command ...
+
+      ## DESCRIPTION
+      generate resources in your local Salesforce DX project
+
+      ## ARGUMENTS
+      you must specify a subcommand and its arguments.
+      **apex**  generate an Apex class or Apex trigger in local project
+      **lwc**   generate an lwc in local project
+
+      ### apex subcommand:
+
+      #### SYNOPSIS
+      gen apex [-t|-e event...|-o object-name] name
+
+      #### DESCRIPTION
+      generate an Apex class or Apex trigger in local project.
+
+      #### ARGUMENTS
+      **name** the name of the Apex class or Apex trigger
+
+      #### OPTIONS
+      **-t, --trigger** generate a trigger
+      **-o, --sobject** sobject that the trigger works
+      **-e, --event** events that the trigger works.Available values are: bi, ai, bu, au, bd, ad, aud that mean "before insert", "after insert", "before update", "after update", "before delete", "after delete", "after undelete". If there are multiple values they must join with camma like "bi,bu" (no space).
+
+      ## EXAMPLE
+      ```shell
+      gen apex MyClass1
+      gen apex MyTrigger --trigger
+      gen apex -t MyTrigger -o Account
+      gen apex -t MyTrigger -o Account --event bi,au # generate trigger named MyTrigger that works when before insert and after update on Account object
+      ```
