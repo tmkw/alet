@@ -26,8 +26,9 @@ ja:
     description: Apexコードを実行する
   model:
     description: 生成済みモデルクラスの表示.またはsobjectクラスの生成
-    noclass:     現セッション内で生成済みのSObjectModelクラスはありません
-    title:       【生成済みのSObjectModelクラス】
+    list:
+      noclass:     現セッション内で生成済みのSObjectModelクラスはありません
+      title:       【生成済みのSObjectModelクラス】
     help: |
       ## Name
       model
