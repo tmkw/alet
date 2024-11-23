@@ -1,4 +1,7 @@
 require 'optparse'
+require 'shellwords'
+require_relative './gen/apex'
+require_relative './gen/lwc'
 
 class GenerateResource < IRB::Command::Base
   category "Alet"
@@ -7,14 +10,20 @@ class GenerateResource < IRB::Command::Base
 
   def execute(arg)
     pastel = Pastel.new
-    argv = arg.split(' ')
+    argv = Shellwords.shellsplit(arg)
     subcommands = {
       'apex' =>  OptionParser.new,
       'lwc' => OptionParser.new,
     }
     subcommands['apex'].on('-t', '--trigger')
     subcommands['apex'].on('-o sobjectName', '--sobject')
-    subcommands['apex'].on('-e events...', '--event')
+    subcommands['apex'].on('-e event1,event2,...', '--event')
+
+    subcommands['lwc'].on('-l label', '--label')
+    subcommands['lwc'].on('-d desc', '--description')
+    subcommands['lwc'].on('-e', '--exposed')
+    subcommands['lwc'].on('-t target1,target2,...', '--target')
+    subcommands['lwc'].on('-o object1,object2,...', '--object')
 
     global_parser = OptionParser.new
     global_parser.order!(argv)
@@ -33,47 +42,17 @@ class GenerateResource < IRB::Command::Base
     subcommand = argv.shift
     subcommands[subcommand].parse!(argv, into: params)
     
-    #puts subcommand
-    #puts argv
-    #puts params
+    #puts subcommand # for debug
+    #puts argv       # for debug
+    #puts params     # for debug
 
     case subcommand
     when 'apex'
       gen_apex(argv, params)
     when 'lwc'
+      gen_lwc(argv, params)
     end
   rescue => e
     puts pastel.red(e.message)
-  end
-
-  def gen_apex(argv, params)
-    return if argv.empty?
-
-    name = argv.first
-
-    base_dir = Dir.pwd
-    dx_dir = 'force-app/main/default'
-    dir = if FileTest.exist?(%|#{base_dir}/#{dx_dir}|)
-            %|#{base_dir}/#{dx_dir}/#{params[:trigger] ? 'triggers' : 'classes'}|
-          else
-            base_dir
-          end
-
-    if params[:trigger]
-      event_map = {
-        'bi' => 'before insert',
-        'bu' => 'before update',
-        'bd' => 'before delete',
-        'ai' => 'after insert',
-        'au' => 'after update',
-        'ad' => 'after delete',
-        'aud' => 'after undelete',
-      }
-      events = params[:event]&.split(',')&.map{|e| event_map[e]}&.compact
-      sf.apex.generate_trigger name, output_dir: dir, sobject: params[:sobject], event: events
-    else
-      sf.apex.generate_class name, output_dir: dir
-      sf.apex.generate_class %|#{name}Test|, output_dir: dir, template: :ApexUnitTest
-    end
   end
 end

@@ -23,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'tty-table', '~>0.12.0'
   s.add_dependency 'pastel', '~>0.8.0'
   s.add_dependency 'i18n', '~>1.14.6'
+  s.add_dependency 'nokogiri', '~>1.16.7'
 end
