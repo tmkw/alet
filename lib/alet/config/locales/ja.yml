@@ -204,42 +204,54 @@ ja:
 
       ## DESCRIPTION
       引数なしで呼び出したときは各種接続設定を表示する。
-      resetサブコマンドが指定されたときは、現在接続しているSF組織への接続を更新する.
+      resetサブコマンドが指定されたときは、現在接続しているSF組織への接続を更新する。
   gen:
     description: Salesforce DXプロジェクトの資材を生成する
     error:
       no_subcommand: サブコマンドを指定してください
       invalid_subcommand: 利用できないサブコマンドです
+      file_duplicated: 同名のコンポーネントがあります。ファイルを作成できません。
     help: |
       ## NAME
       gen
 
       ## SYNOPSIS
-      gen sub-command ...
+      `gen sub-command ...`
 
       ## DESCRIPTION
       Salesforce DXプロジェクトの資材を生成する
 
       ## ARGUMENTS
-      サブコマンドを指定する.サブコマンドごとに必要な引数は異なる.
+      サブコマンドを指定する。サブコマンドごとに必要な引数は異なる。
       **apex** ApexクラスまたはApexトリガーのソースファイルを生成する
       **lwc** LWCのソースファイルを生成する
 
       ### apex サブコマンド
 
       #### SYNOPSIS
-      gen apex [-t|-e event...|-o object-name] name
+      `gen apex [-t|-e event1,event2,...|-o object-name] name`
 
       #### DESCRIPTION
-      ApexクラスまたはApexトリガーのソースファイルを生成する.Salesforce DXプロジェクトのルートディレクトリで実行した場合、所定のディレクトリにファイルを生成する.
+      ApexクラスまたはApexトリガーのソースファイルを生成する。Salesforce DXプロジェクトのルートディレクトリで実行した場合、所定のディレクトリにファイルを生成する.
 
       #### ARGUMENTS
-      **name** ApexクラスまたはApexトリガーの名前
+      `name` ApexクラスまたはApexトリガーの名前
 
       #### OPTIONS
-      **-t, ---trigger** トリガーのソースファイルを生成する
-      **-o, ---sobject** トリガーが機能するオブジェクト
-      **-e, ---event** トリガーが機能するイベント.指定可能な値はbi, ai, bu, au, bd, ad, audのみ(先頭から順に"before insert", "after insert", "before update", "after update", "before delete", "after delete", "after undelete"の意).複数のイベントを指定する場合はカンマでつなぐこと。スペースを入れてはならない(例: bi,bu).
+      `-t`, `--trigger` トリガーのソースファイルを生成する
+      `-o`, `--sobject` トリガーが機能するオブジェクト
+      `-e`, `--event` トリガーが機能するイベント。複数のイベントを指定する場合はカンマでつなぐこと。スペースを入れてはならない(例: bi,bu)。
+
+      ##### eventで利用可能な値
+
+      |値|意味|
+      |bi|before insert|
+      |ai|after insert|
+      |bu|before update|
+      |au|after update|
+      |bd|before delete|
+      |ad|after delete|
+      |aud|after undelete|
 
       #### EXAMPLE
       ```shell
@@ -248,3 +260,45 @@ ja:
       gen apex -t MyTrigger -o Account # トリガーのオブジェクトにAccount(取引先)オブジェクトを指定
       gen apex -t MyTrigger --event bi,au # トリガーのイベントに before insertとafter update を指定
       ```
+
+      ### lwc サブコマンド
+
+      #### SYNOPSIS
+      `gen lwc [-l label|-d description|-e|-t target1,target2,...|-o object1,object2,...] name`
+
+      #### DESCRIPTION
+      LWC(Lightning Web Component)を構成するファイルをローカルプロジェクト内に生成する。
+      Salesforce DXプロジェクトのルートディレクトリで実行することが前提で、それ以外の場所で実行すると基本的にエラーとなる。
+
+      #### ARGUMENTS
+      `name` LWCの名前
+
+      #### OPTIONS
+      `-l`, `--label` LWC設定ファイルの`masterLabel`セクションの内容を指定する
+      `-d`, `--description` LWC設定ファイルの`description`セクションの内容を指定する
+      `-e`, `--exposed` LWC設定ファイルの`isExposed`セクションの内容を指定する。デフォルトはfalse。
+      `-t`, `--target` LWC設定ファイルの`targets`セクションの内容を指定する。複数設定する場合はカンマ区切りで指定すること。
+      `-o`, `--object` LWC設定ファイルの`object`セクションの内容を指定する。`target`に**record**を指定したときにのみ有効。複数設定する場合はカンマ区切りで指定すること。
+
+      ##### targetオプションの値
+
+      |値    |意味                   |
+      |app   |lightning__AppPage     |
+      |flow  |lightning__FlowScreen  |
+      |home  |lightning__HomePage    |
+      |action|lightning__RecordAction|
+      |record|lightning__RecordPage  |
+      |tab   |lightning__Tab         |
+      |bar   |lightning__UtilityBar  |
+
+      #### EXAMPLE
+      ```shell
+      gen lwc LWC1 # LWC1という名前のLWCソースファイルを生成
+      gen lwc LWC1 -l "my first LWC"
+      gen lwc LWC1 -d "this is my first LWC"
+      gen lwc LWC1 -t app,home,record # LWCの利用可能範囲をアプリケーションページ、ホームページ、レコードページに指定
+      gen lwc LWC1 -o Account -t record # LWCの利用可能範囲をAccountのレコードページに指定
+      ```
+
+      #### SEE ALSO
+      [XML設定ファイルの要素](https://developer.salesforce.com/docs/platform/ja-jp/lwc/guide/reference-configuration-tags.html)

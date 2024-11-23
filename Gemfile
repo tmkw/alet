@@ -9,6 +9,7 @@ gem 'tty-markdown', '~>0.7.2'
 gem 'tty-table', '~>0.12.0'
 gem 'pastel', '~>0.8.0'
 gem 'i18n', '~>1.14.6'
+gem 'nokogiri', '~>1.16.7'
 
 group :development do
   gem 'rake'

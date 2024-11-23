@@ -208,12 +208,13 @@ en:
     error:
       no_subcommand: subcommand isn't specified
       invalid_subcommand: invalid subcommand
+      file_duplicated: the same component already exists
     help: |
       ## NAME
       gen
 
       ## SYNOPSIS
-      gen sub-command ...
+      `gen sub-command ...`
 
       ## DESCRIPTION
       generate resources in your local Salesforce DX project
@@ -226,18 +227,29 @@ en:
       ### apex subcommand:
 
       #### SYNOPSIS
-      gen apex [-t|-e event...|-o object-name] name
+      `gen apex [-t|-e event1,event2,...|-o object-name] name`
 
       #### DESCRIPTION
       generate an Apex class or Apex trigger in local project.
 
       #### ARGUMENTS
-      **name** the name of the Apex class or Apex trigger
+      `name` the name of the Apex class or Apex trigger
 
       #### OPTIONS
-      **-t, --trigger** generate a trigger
-      **-o, --sobject** sobject that the trigger works
-      **-e, --event** events that the trigger works.Available values are: bi, ai, bu, au, bd, ad, aud that mean "before insert", "after insert", "before update", "after update", "before delete", "after delete", "after undelete". If there are multiple values they must join with camma like "bi,bu" (no space).
+      `-t`, `--trigger` generate a trigger
+      `-o`, `--sobject` sobject that the trigger works
+      `-e`, `--event` events that the trigger works.Available values are: bi, ai, bu, au, bd, ad and aud.If there are multiple values they must join with camma like "bi,bu" (no space).
+
+      ##### available values of event
+
+      |value|meaning|
+      |bi|before insert|
+      |ai|after insert|
+      |bu|before update|
+      |au|after update|
+      |bd|before delete|
+      |ad|after delete|
+      |aud|after undelete|
 
       ## EXAMPLE
       ```shell
@@ -246,3 +258,44 @@ en:
       gen apex -t MyTrigger -o Account
       gen apex -t MyTrigger -o Account --event bi,au # generate trigger named MyTrigger that works when before insert and after update on Account object
       ```
+
+      ### lwc subcommand
+
+      #### SYNOPSIS
+      `gen lwc [-l label|-d description|-e|-t target1,target2,...|-o object1,object2,...] name`
+
+      #### DESCRIPTION
+      generate LWC(Lightning Web Component) files in local project.
+
+      #### ARGUMENTS
+      `name` component name of LWC
+
+      #### OPTIONS
+      `-l`, `--label` specify `masterLabel` section in the xml configulation file.
+      `-d`, `--description` specify `description` section in the xml configulation file.
+      `-e`, `--exposed` specify `isExposed` section in the xml configulation file. Default is false
+      `-t`, `--target` specify `target` section in the xml configulation file.If there are multiple values they must join with camma.
+      `-o`, `--object` specify `object` section in the xml configulation file. this options is only available when `target` includes **record**.If there are multiple values they must join with camma.
+
+      ##### available values of target
+
+      |value |meaning                |
+      |app   |lightning__AppPage     |
+      |flow  |lightning__FlowScreen  |
+      |home  |lightning__HomePage    |
+      |action|lightning__RecordAction|
+      |record|lightning__RecordPage  |
+      |tab   |lightning__Tab         |
+      |bar   |lightning__UtilityBar  |
+
+      #### EXAMPLE
+      ```shell
+      gen lwc LWC1
+      gen lwc LWC1 -l "my first LWC"
+      gen lwc LWC1 -d "this is my first LWC"
+      gen lwc LWC1 -t app,home,record
+      gen lwc LWC1 -o Account -t record
+      ```
+
+      #### SEE ALSO
+      [XML Configuration File Elements](https://developer.salesforce.com/docs/platform/lwc/guide/reference-configuration-tags.html)
