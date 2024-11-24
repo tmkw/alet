@@ -299,3 +299,51 @@ en:
 
       #### SEE ALSO
       [XML Configuration File Elements](https://developer.salesforce.com/docs/platform/lwc/guide/reference-configuration-tags.html)
+  deploy:
+    description: deploy project's resources
+    error:
+      no_arguments: no arguments
+    help: |
+      ## NAME
+      deploy
+
+      ## SYNOPSIS
+      `deploy [-d|-t test1,test2...|-l test-level] component-type component-name...`
+
+      ## DESCRIPTION
+      deploy(upload) local project's files to the Salesforce org
+
+      ## ARGUMENTS
+      `component-type` `file` or metadata type name. for metadata type, some shortcut names are available.
+      `component-name` name of the component. if `component-type` is `file` this must be a file path or directory path. If `component-type` is metadata type the name can include wildcard(*)
+
+      ### shortcut name of metadata type
+
+      |shortcut name|metadata type|
+      |apex|ApexClass|
+      |trigger|ApexTrigger|
+      |lwc|LightningComponentBundle|
+
+      you can check all metadata types by sf command (`sf org list metadata-type`)
+
+      ## OPTIONS
+      `-d`, `--dryrun`　Validate deploy and run Apex tests but don’t save to the org.
+      `-l`, `--test-level` deployment Apex testing level
+      `-t`, `--tests` Apex tests to run when --test-level is RunSpecifiedTests. when multiple tests are specified, join them with comma (no space).
+      `-m`, `--manifest` deploy files according to manifest file. When this options is specified `component-name` is ignored.
+
+      ### available test-level value
+
+      |value|meaning|
+      |RunSpecifiedTests|Runs only the tests that you specify with the --tests flag|
+      |RunLocalTests|All tests in your org are run, except the ones that originate from installed managed and unlocked packages|
+      |RunLocalTests|All tests in your org are run, including tests of managed packages.|
+
+      ## EXAMPLE
+      ```shell
+      deploy apex MyClass1
+      deploy lwc myLWC
+      deploy apex MyClass --test-level RunSpecifiedTests --tests test1,test2
+      deploy file -m manifest/package.xml
+      deploy file force-app/main/default/class/MyClass1.cls
+      ```
