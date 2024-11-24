@@ -1,18 +1,12 @@
 module Alet
-  def self.config
-    @config ||= Config.new
-  end
-
   class Config
-    def connection
-      @connection
+    def org
+      @org
     end
-    alias conn connection
 
-    def connection=(conn)
-      @connection = conn
+    def org=(org)
+      @org = org
     end
-    alias conn= connection=
 
     def cli_options
       @cli_options ||= {}

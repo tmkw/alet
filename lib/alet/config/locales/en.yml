@@ -3,45 +3,52 @@ en:
     desc:            A Ruby-styled Salesforce console utility
     target_org:      Username or alias of the target org
     irb:
-      desc:          start irb session(if there is no subcommand specified, irb gets default)
+      desc:          Start irb session(if there is no subcommand specified, irb gets default)
       example:
-        default:     start irb session
-        target_org:  start irb session with specifying target org
-    generate:
-      desc:          generate resources that are related to Salesforce DX project
-      project:
-        desc:        generate salesforce DX project
+        default:     Start irb session
+        target_org:  Start irb session with specifying target org
+    project:
+      desc:          Create/Update a Salesforce DX project
+      open_editor:   Open editor(vs code) to edit the project
+      generate:
+        desc:        Generate a salesforce DX project
         target_org:  Username or alias of the target org, which the manifest and source files are generated based on
         manifest:    Generate a manifest (package.xml)
         retrieve:    Retrieve source files from org
-        open_editor: open editor(vs code) to edit the project
         example:
           default:   create a Salesfore DX project
           manifest:  create a Salesfore DX project with manifest file (package.xml)
           from_org:  The manifest file is built based on org
           retrieve:  The manifest file and medadata source files are built based on org. This option is only available with -o option.
-  connection:
-    description: Current connection with Salesforce
+      update:
+        desc:        Update a salesforce DX project based on current org
   apex:
     description: Execute Apex code
-  gen:
-    description: Generate sObject classes
+  model:
+    description: List/Generate sObject classes
+    list:
+      noclass: No class is generated in this session
+      title:   【Generated Classes】
     help: |
       ## Name
-      gen
+      model
 
       ## SYNOPSIS
-      gene sObjectType...
+      model [list|load sObjectType...]
 
       ## DESCRIPTION
-      generate sObject classes
+      1. show sobject model classes that has been generated already.
+      2. generate classes that represent sobjects.
 
       ## ARGUMENTS
-      **sObjectType** sObject type
+      **list** list model classes that has been generated already.
+      **load sObjectType...** generate sObject classes
 
       ## EXAMPLES
       ```shell
-      gen Account Contact User
+      model  # shows sobject model classes that has been generated already.
+      model list # same as above
+      model load Account Contact User # load Account, Contact and User sobject classes
   query:
     description: Query by SOQL
     help: |
@@ -101,4 +108,242 @@ en:
       ## EXAMPLE
       ```shell
       export SELECT Id, Name FROM Account
+      ```
+  org:
+    description: Current connection with Salesforce
+    help: |
+      ## NAME
+      org
+
+      ## SYNOPSIS
+      org
+
+      ## DESCRIPTION
+      show current connection settings
+  grep:
+    description: find sObject
+    help: |
+      ## NAME
+      grep
+
+      ## SYNOPSIS
+      grep [-ln] regexp
+
+      ## DESCRIPTION
+      find sobject by name or label 
+
+      ## ARGUMENTS
+      **regexp** regular expression that indicates name or label
+
+      ## OPTIONS
+      **-l, [---label]** find by only label
+      **-n, [---api-name]** find by only api name
+
+      ## EXAMPLE
+      ```shell
+      grep Account
+      grep -n Account*
+      ```
+  desc:
+    description: show object summary
+    table:
+      field: Fields
+      relation: Relations
+      record_type: RecordType
+    column:
+      label: label
+      name:  name
+      type:  type
+      relation_name:  relation name
+      relation_type:  relation type
+      relation_class:  class name
+      relation_field:  field name
+      record_type_name: name
+      record_type_id:   id
+      record_type_developer_name: developer name
+    relation_type:
+      parent: child-parent
+      child: parent-child
+    error:
+      notfound: Not Found
+    help: |
+      ## NAME
+      desc
+
+      ## SYNOPSIS
+      desc [-rta] object-name
+
+      ## DESCRIPTION
+      show an object summary
+
+      ## ARGUMENTS
+      **object-name** object name
+
+      ## OPTIONS
+      **-r, [---relation]** show relationships
+      **-t, [---record-type]** show record types
+      **-a, [---all])** show all summary
+
+      if there is no options only field summary is shown.
+
+      ## EXAMPLE
+      ```shell
+      desc Account    # show Account's field summary
+      desc -r Account # show Account's relationships
+      ```
+  conn:
+    description: connection settings
+    invalid_subcommand: invalid subcommand
+    help: |
+      ## NAME
+      conn
+
+      ## SYNOPSIS
+      conn [reset]
+
+      ## DESCRIPTION
+      Show current connection settings when no subcommand is specified. Or reset the connection when "reset" subcommand is executed.
+  gen:
+    description: generate Salesforce DX project resources
+    error:
+      no_subcommand: subcommand isn't specified
+      invalid_subcommand: invalid subcommand
+      file_duplicated: the same component already exists
+    help: |
+      ## NAME
+      gen
+
+      ## SYNOPSIS
+      `gen sub-command ...`
+
+      ## DESCRIPTION
+      generate resources in your local Salesforce DX project
+
+      ## ARGUMENTS
+      you must specify a subcommand and its arguments.
+      **apex**  generate an Apex class or Apex trigger in local project
+      **lwc**   generate an lwc in local project
+
+      ### apex subcommand:
+
+      #### SYNOPSIS
+      `gen apex [-t|-e event1,event2,...|-o object-name] name`
+
+      #### DESCRIPTION
+      generate an Apex class or Apex trigger in local project.
+
+      #### ARGUMENTS
+      `name` the name of the Apex class or Apex trigger
+
+      #### OPTIONS
+      `-t`, `--trigger` generate a trigger
+      `-o`, `--sobject` sobject that the trigger works
+      `-e`, `--event` events that the trigger works.Available values are: bi, ai, bu, au, bd, ad and aud.If there are multiple values they must join with camma like "bi,bu" (no space).
+
+      ##### available values of event
+
+      |value|meaning|
+      |bi|before insert|
+      |ai|after insert|
+      |bu|before update|
+      |au|after update|
+      |bd|before delete|
+      |ad|after delete|
+      |aud|after undelete|
+
+      ## EXAMPLE
+      ```shell
+      gen apex MyClass1
+      gen apex MyTrigger --trigger
+      gen apex -t MyTrigger -o Account
+      gen apex -t MyTrigger -o Account --event bi,au # generate trigger named MyTrigger that works when before insert and after update on Account object
+      ```
+
+      ### lwc subcommand
+
+      #### SYNOPSIS
+      `gen lwc [-l label|-d description|-e|-t target1,target2,...|-o object1,object2,...] name`
+
+      #### DESCRIPTION
+      generate LWC(Lightning Web Component) files in local project.
+
+      #### ARGUMENTS
+      `name` component name of LWC
+
+      #### OPTIONS
+      `-l`, `--label` specify `masterLabel` section in the xml configulation file.
+      `-d`, `--description` specify `description` section in the xml configulation file.
+      `-e`, `--exposed` specify `isExposed` section in the xml configulation file. Default is false
+      `-t`, `--target` specify `target` section in the xml configulation file.If there are multiple values they must join with camma.
+      `-o`, `--object` specify `object` section in the xml configulation file. this options is only available when `target` includes **record**.If there are multiple values they must join with camma.
+
+      ##### available values of target
+
+      |value |meaning                |
+      |app   |lightning__AppPage     |
+      |flow  |lightning__FlowScreen  |
+      |home  |lightning__HomePage    |
+      |action|lightning__RecordAction|
+      |record|lightning__RecordPage  |
+      |tab   |lightning__Tab         |
+      |bar   |lightning__UtilityBar  |
+
+      #### EXAMPLE
+      ```shell
+      gen lwc LWC1
+      gen lwc LWC1 -l "my first LWC"
+      gen lwc LWC1 -d "this is my first LWC"
+      gen lwc LWC1 -t app,home,record
+      gen lwc LWC1 -o Account -t record
+      ```
+
+      #### SEE ALSO
+      [XML Configuration File Elements](https://developer.salesforce.com/docs/platform/lwc/guide/reference-configuration-tags.html)
+  deploy:
+    description: deploy project's resources
+    error:
+      no_arguments: no arguments
+    help: |
+      ## NAME
+      deploy
+
+      ## SYNOPSIS
+      `deploy [-d|-t test1,test2...|-l test-level] component-type component-name...`
+
+      ## DESCRIPTION
+      deploy(upload) local project's files to the Salesforce org
+
+      ## ARGUMENTS
+      `component-type` `file` or metadata type name. for metadata type, some shortcut names are available.
+      `component-name` name of the component. if `component-type` is `file` this must be a file path or directory path. If `component-type` is metadata type the name can include wildcard(*)
+
+      ### shortcut name of metadata type
+
+      |shortcut name|metadata type|
+      |apex|ApexClass|
+      |trigger|ApexTrigger|
+      |lwc|LightningComponentBundle|
+
+      you can check all metadata types by sf command (`sf org list metadata-type`)
+
+      ## OPTIONS
+      `-d`, `--dryrun`　Validate deploy and run Apex tests but don’t save to the org.
+      `-l`, `--test-level` deployment Apex testing level
+      `-t`, `--tests` Apex tests to run when --test-level is RunSpecifiedTests. when multiple tests are specified, join them with comma (no space).
+      `-m`, `--manifest` deploy files according to manifest file. When this options is specified `component-name` is ignored.
+
+      ### available test-level value
+
+      |value|meaning|
+      |RunSpecifiedTests|Runs only the tests that you specify with the --tests flag|
+      |RunLocalTests|All tests in your org are run, except the ones that originate from installed managed and unlocked packages|
+      |RunLocalTests|All tests in your org are run, including tests of managed packages.|
+
+      ## EXAMPLE
+      ```shell
+      deploy apex MyClass1
+      deploy lwc myLWC
+      deploy apex MyClass --test-level RunSpecifiedTests --tests test1,test2
+      deploy file -m manifest/package.xml
+      deploy file force-app/main/default/class/MyClass1.cls
       ```

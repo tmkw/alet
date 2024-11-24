@@ -7,41 +7,48 @@ ja:
       example:
         default:     irbセッションを開始.
         target_org:  SF組織の別名またはログインユーザー名を指定してirbを起動
-    generate:
-      desc:          Salesforce DXプロジェクトに関連した資材を生成する
-      project:
+    project:
+      desc:          Salesforce DXプロジェクトの生成・更新を行う
+      open_editor: プロジェクト構築/更新完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
+      generate:
         desc:        salesforce DX projectを生成する
         target_org:  マニフェストファイルとソースファイルの読み込み先となるSF組織の別名またはその組織のユーザー名
         manifest:    マニフェストファイル(package.xml)を生成する
         retrieve:    マニフェストファイルの内容を元にSF組織からソースファイルを取得する
-        open_editor: プロジェクト構築完了後、そのプロジェクトをカレントディレクトとしてvs codeを起動する
         example:
-          default:   a Salesfore DXプロジェクトのディレクトリを作成する
+          default:   Salesfore DXプロジェクトのディレクトリを作成する
           manifest:  プロジェクトディレクトリにマニフェストファイル(package.xml)を含める
           from_org:  接続組織のメタデータ情報を元にマニフェストファイルの内容を書き込む.
           retrieve:  メタデータのソースファイルをDXプロジェクト内に生成する
-  connection:
-    description: 現在のSalesforce組織との接続情報
+      update:
+        desc:        現在接続中のSF組織の内容でマニフェストとソースファイルを更新する
   apex:
     description: Apexコードを実行する
-  gen:
-    description: 1つ以上のsObjectクラスを生成する
+  model:
+    description: 生成済みモデルクラスの表示.またはsobjectクラスの生成
+    list:
+      noclass:     現セッション内で生成済みのSObjectModelクラスはありません
+      title:       【生成済みのSObjectModelクラス】
     help: |
       ## Name
-      gen
+      model
 
       ## SYNOPSIS
-      gen sObjectType...
+      model [list|load sObjectType...]
 
       ## DESCRIPTION
-      1つ以上のsObjectクラスを生成する
+      1. セッション内で既に生成済みのsobjectクラスの一覧表示
+      2. 1つ以上のsobjectクラスを生成する
 
       ## ARGUMENTS
-      **sObjectType** sObjectの型名
+      **list** sobjectクラスの一覧表示.何も引数を指定しない場合はこの挙動を実行する.
+      **load sObjectType...** 1つ以上のsObjectクラスを生成する(sObjectTypeはsobjectの型名)
 
       ## EXAMPLES
       ```shell
-      gen Account Contact User
+      model  # 生成済みsobjectクラスの一覧表示
+      model list # 同上
+      model load Account Contact User # 取引先、取引先責任者およびユーザーオブジェクトのモデルクラスを生成
       ```
   query:
     description: SOQLを使ってレコードを検索する 
@@ -102,4 +109,245 @@ ja:
       ## EXAMPLE
       ```shell
       export SELECT Id, Name FROM Account
+      ```
+  org:
+    description: 現在のSalesforce組織との接続情報
+    help: |
+      ## NAME
+      org
+
+      ## SYNOPSIS
+      org
+
+      ## DESCRIPTION
+      現在のSalesforce組織との接続情報を表示する
+  grep:
+    description: オブジェクト(sObject)を探す
+    help: |
+      ## NAME
+      grep
+
+      ## SYNOPSIS
+      grep [-ln] regexp
+
+      ## DESCRIPTION
+      ラベルもしくはAPI名のどちらかでオブジェクト(sObject)の存在を探す。
+      sObjectであれば全てが検索対象となる。
+
+      ## ARGUMENTS
+      **regexp** オブジェクトのラベルまたはAPI名を示す正規表現
+
+      ## OPTIONS
+      **-l, [---label]**    ラベル名のみで探す
+      **-n, [---api-name]** API名のみで探す
+
+      ## EXAMPLE
+      ```shell
+      grep Account
+      grep -n Account*
+      ```
+  desc:
+    description: オブジェクトの概要を表示する
+    table:
+      field: 【項目】
+      relation: 【参照関係】
+      record_type: 【レコードタイプ】
+    column:
+      label: ラベル
+      name:  API名
+      type:  データ型
+      relation_name:  リレーション名
+      relation_type:  種別
+      relation_class: クラス名
+      relation_field: 項目名
+      record_type_name: レコードタイプ名
+      record_type_id:   レコードタイプID
+      record_type_developer_name: developer name
+    relation_type:
+      parent: 子-親
+      child: 親-子
+    error:
+      notfound: 該当するオブジェクトがありません
+    help: |
+      ## NAME
+      desc
+
+      ## SYNOPSIS
+      desc [-rta] object-name
+
+      ## DESCRIPTION
+      オブジェクトの概要を表示する
+
+      ## ARGUMENTS
+      **object-name** オブジェクト名(API名)
+
+      ## OPTIONS
+      **-r, [---relation]** リレーションを表示
+      **-t, [---record-type]** レコードタイプを表示
+      **-a, [---all]** 全ての概要を表示
+
+      もし何もオプションが指定されなければ各項目の概要を表示する
+
+      ## EXAMPLE
+      ```shell
+      desc Account     # 取引先の項目を表示する
+      desc -r Account  # 取引先のリレーションを表示する
+      ```
+  conn:
+    description: SF組織に対する接続設定の表示または設定
+    invalid_subcommand: 指定されたサブコマンドは利用できません
+    help: |
+      ## NAME
+      conn
+
+      ## SYNOPSIS
+      conn [reset]
+
+      ## DESCRIPTION
+      引数なしで呼び出したときは各種接続設定を表示する。
+      resetサブコマンドが指定されたときは、現在接続しているSF組織への接続を更新する。
+  gen:
+    description: Salesforce DXプロジェクトの資材を生成する
+    error:
+      no_subcommand: サブコマンドを指定してください
+      invalid_subcommand: 利用できないサブコマンドです
+      file_duplicated: 同名のコンポーネントがあります。ファイルを作成できません。
+    help: |
+      ## NAME
+      gen
+
+      ## SYNOPSIS
+      `gen sub-command ...`
+
+      ## DESCRIPTION
+      Salesforce DXプロジェクトの資材を生成する
+
+      ## ARGUMENTS
+      サブコマンドを指定する。サブコマンドごとに必要な引数は異なる。
+      **apex** ApexクラスまたはApexトリガーのソースファイルを生成する
+      **lwc** LWCのソースファイルを生成する
+
+      ### apex サブコマンド
+
+      #### SYNOPSIS
+      `gen apex [-t|-e event1,event2,...|-o object-name] name`
+
+      #### DESCRIPTION
+      ApexクラスまたはApexトリガーのソースファイルを生成する。Salesforce DXプロジェクトのルートディレクトリで実行した場合、所定のディレクトリにファイルを生成する.
+
+      #### ARGUMENTS
+      `name` ApexクラスまたはApexトリガーの名前
+
+      #### OPTIONS
+      `-t`, `--trigger` トリガーのソースファイルを生成する
+      `-o`, `--sobject` トリガーが機能するオブジェクト
+      `-e`, `--event` トリガーが機能するイベント。複数のイベントを指定する場合はカンマでつなぐこと。スペースを入れてはならない(例: bi,bu)。
+
+      ##### eventで利用可能な値
+
+      |値|意味|
+      |bi|before insert|
+      |ai|after insert|
+      |bu|before update|
+      |au|after update|
+      |bd|before delete|
+      |ad|after delete|
+      |aud|after undelete|
+
+      #### EXAMPLE
+      ```shell
+      gen apex MyClass1 # MyClassという名前のApexクラスのソースファイルを生成
+      gen apex MyTrigger --trigger # MyTriggerという名前のトリガーのソースファイルを生成
+      gen apex -t MyTrigger -o Account # トリガーのオブジェクトにAccount(取引先)オブジェクトを指定
+      gen apex -t MyTrigger --event bi,au # トリガーのイベントに before insertとafter update を指定
+      ```
+
+      ### lwc サブコマンド
+
+      #### SYNOPSIS
+      `gen lwc [-l label|-d description|-e|-t target1,target2,...|-o object1,object2,...] name`
+
+      #### DESCRIPTION
+      LWC(Lightning Web Component)を構成するファイルをローカルプロジェクト内に生成する。
+      Salesforce DXプロジェクトのルートディレクトリで実行することが前提で、それ以外の場所で実行すると基本的にエラーとなる。
+
+      #### ARGUMENTS
+      `name` LWCの名前
+
+      #### OPTIONS
+      `-l`, `--label` LWC設定ファイルの`masterLabel`セクションの内容を指定する
+      `-d`, `--description` LWC設定ファイルの`description`セクションの内容を指定する
+      `-e`, `--exposed` LWC設定ファイルの`isExposed`セクションの内容を指定する。デフォルトはfalse。
+      `-t`, `--target` LWC設定ファイルの`targets`セクションの内容を指定する。複数設定する場合はカンマ区切りで指定すること。
+      `-o`, `--object` LWC設定ファイルの`object`セクションの内容を指定する。`target`に**record**を指定したときにのみ有効。複数設定する場合はカンマ区切りで指定すること。
+
+      ##### targetオプションの値
+
+      |値    |意味                   |
+      |app   |lightning__AppPage     |
+      |flow  |lightning__FlowScreen  |
+      |home  |lightning__HomePage    |
+      |action|lightning__RecordAction|
+      |record|lightning__RecordPage  |
+      |tab   |lightning__Tab         |
+      |bar   |lightning__UtilityBar  |
+
+      #### EXAMPLE
+      ```shell
+      gen lwc LWC1 # LWC1という名前のLWCソースファイルを生成
+      gen lwc LWC1 -l "my first LWC"
+      gen lwc LWC1 -d "this is my first LWC"
+      gen lwc LWC1 -t app,home,record # LWCの利用可能範囲をアプリケーションページ、ホームページ、レコードページに指定
+      gen lwc LWC1 -o Account -t record # LWCの利用可能範囲をAccountのレコードページに指定
+      ```
+
+      #### SEE ALSO
+      [XML設定ファイルの要素](https://developer.salesforce.com/docs/platform/ja-jp/lwc/guide/reference-configuration-tags.html)
+  deploy:
+    description: プロジェクトの資材をSalesforce組織にアップロードする
+    error:
+      no_arguments: 引数を指定してください
+    help: |
+      ## NAME
+      deploy
+
+      ## SYNOPSIS
+      `deploy [-d|-t test1,test2...|-l test-level] component-type component-name...`
+
+      ## DESCRIPTION
+      ローカルプロジェクトの資材をSF組織にアップロードする
+
+      ## ARGUMENTS
+      `component-type` コンポーネントの種類。`file` かそれ以外を指定する。`file`以外で指定できる値は各メタデータタイプ名もしくは短縮名。
+      `component-name` コンポーネントの名前。コンポーネントの種類が`file`の場合、この名前はファイルパスまたはディレクトリパスである必要がある。コンポーネントの種類が`file`以外ならワイルドカード(*)も使用できる。
+
+      ### コンポーネント短縮名の一覧
+
+      |短縮名|メタデータタイプ名|
+      |apex|ApexClass|
+      |trigger|ApexTrigger|
+      |lwc|LightningComponentBundle|
+
+      メタデータタイプ名はsfコマンドで確認できる。(`sf org list metadata-type`)
+
+      ## OPTIONS
+      `-d`, `--dryrun`　実際にアップロードはせず、アップロードの検証のみ行う
+      `-l`, `--test-level` アップロード時に実行するApexテストの種類を指定する。
+      `-t`, `--tests` アップロード時に実行するテスト。`test-level`が`RunSpecifiedTests`のときにのみ有効。複数指定するときはカンマ区切りでつなぐこと。
+      `-m`, `--manifest` マニフェストファイルの内容に従ってプロジェクトのファイルをアップロードする。`component-type`が`file`のときのみ有効。このオプションが指定されると`component-name`は無視される。
+
+      ### test-levelで利用可能な値
+
+      |値|意味|
+      |RunSpecifiedTests|指定された個別のテストのみ実行|
+      |RunLocalTests|managed packageを除く組織内のテストを全て実行|
+      |RunLocalTests|managed packageを含む全ての組織内テストを実行|
+
+      ## EXAMPLE
+      ```shell
+      deploy apex MyClass1
+      deploy lwc myLWC
+      deploy apex MyClass --test-level RunSpecifiedTests --tests test1,test2
+      deploy file -m manifest/package.xml
+      deploy file force-app/main/default/class/MyClass1.cls
       ```
