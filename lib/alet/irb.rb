@@ -35,16 +35,18 @@ require_relative 'irb/command/grep'
 require_relative 'irb/command/describe'
 require_relative 'irb/command/conn'
 require_relative 'irb/command/gen'
+require_relative 'irb/command/deploy'
 
-IRB::Command.register :grep, Grep
-IRB::Command.register :desc, Describe
-IRB::Command.register :query, Query
-IRB::Command.register :export, Export
-IRB::Command.register :sh, Shell
-IRB::Command.register :org, Org
 IRB::Command.register :conn, Conn
-IRB::Command.register :model, GenerateModel
+IRB::Command.register :deploy, Deploy
+IRB::Command.register :desc, Describe
+IRB::Command.register :export, Export
 IRB::Command.register :gen, GenerateResource
+IRB::Command.register :grep, Grep
+IRB::Command.register :model, GenerateModel
+IRB::Command.register :org, Org
+IRB::Command.register :query, Query
+IRB::Command.register :sh, Shell
 
 #
 # load helper methods

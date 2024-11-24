@@ -303,3 +303,51 @@ ja:
 
       #### SEE ALSO
       [XML設定ファイルの要素](https://developer.salesforce.com/docs/platform/ja-jp/lwc/guide/reference-configuration-tags.html)
+  deploy:
+    description: プロジェクトの資材をSalesforce組織にアップロードする
+    error:
+      no_arguments: 引数を指定してください
+    help: |
+      ## NAME
+      deploy
+
+      ## SYNOPSIS
+      `deploy [-d|-t test1,test2...|-l test-level] component-type component-name...`
+
+      ## DESCRIPTION
+      ローカルプロジェクトの資材をSF組織にアップロードする
+
+      ## ARGUMENTS
+      `component-type` コンポーネントの種類。`file` かそれ以外を指定する。`file`以外で指定できる値は各メタデータタイプ名もしくは短縮名。
+      `component-name` コンポーネントの名前。コンポーネントの種類が`file`の場合、この名前はファイルパスまたはディレクトリパスである必要がある。コンポーネントの種類が`file`以外ならワイルドカード(*)も使用できる。
+
+      ### コンポーネント短縮名の一覧
+
+      |短縮名|メタデータタイプ名|
+      |apex|ApexClass|
+      |trigger|ApexTrigger|
+      |lwc|LightningComponentBundle|
+
+      メタデータタイプ名はsfコマンドで確認できる。(`sf org list metadata-type`)
+
+      ## OPTIONS
+      `-d`, `--dryrun`　実際にアップロードはせず、アップロードの検証のみ行う
+      `-l`, `--test-level` アップロード時に実行するApexテストの種類を指定する。
+      `-t`, `--tests` アップロード時に実行するテスト。`test-level`が`RunSpecifiedTests`のときにのみ有効。複数指定するときはカンマ区切りでつなぐこと。
+      `-m`, `--manifest` マニフェストファイルの内容に従ってプロジェクトのファイルをアップロードする。`component-type`が`file`のときのみ有効。このオプションが指定されると`component-name`は無視される。
+
+      ### test-levelで利用可能な値
+
+      |値|意味|
+      |RunSpecifiedTests|指定された個別のテストのみ実行|
+      |RunLocalTests|managed packageを除く組織内のテストを全て実行|
+      |RunLocalTests|managed packageを含む全ての組織内テストを実行|
+
+      ## EXAMPLE
+      ```shell
+      deploy apex MyClass1
+      deploy lwc myLWC
+      deploy apex MyClass --test-level RunSpecifiedTests --tests test1,test2
+      deploy file -m manifest/package.xml
+      deploy file force-app/main/default/class/MyClass1.cls
+      ```
